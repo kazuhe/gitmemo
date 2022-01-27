@@ -1,0 +1,9 @@
+# Dependency directories
+node_modules/
+
+# macOS
+.DS_Store
+
+# build output
+lib/*
+!lib/README.md
