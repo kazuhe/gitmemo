@@ -4,7 +4,7 @@
   "description": "A note tool that runs on Node.js and uses git as a database.",
   "main": "index.js",
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "webpack",
     "test": "jest"
   },
   "author": "kazuhe (https://github.com/kazuhe)",
@@ -23,6 +23,9 @@
     "jest": "^27.5.1",
     "prettier": "^2.5.1",
     "ts-jest": "^27.1.4",
-    "typescript": "^4.5.5"
+    "ts-loader": "^9.2.8",
+    "typescript": "^4.5.5",
+    "webpack": "^5.72.0",
+    "webpack-cli": "^4.9.2"
   }
 }

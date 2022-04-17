@@ -1,13 +1,9 @@
 import child_process from "child_process";
+import { Clone } from "@/domain/repository";
 
-/**
- * リポジトリを clone する
- * @param remote remote path
- * @param local local path
- */
 export const clone =
-  (exec: typeof child_process.exec) =>
-  async (remote: string, local: string): Promise<string> => {
+  (exec: typeof child_process.exec): Clone =>
+  (remote, local) => {
     return new Promise((resolve, reject) => {
       exec(`git clone ${remote} ${local}`, (error, _, stderr) => {
         if (error) {
