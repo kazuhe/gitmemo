@@ -8,7 +8,7 @@ export const question: Question = (question) => {
   });
   return new Promise((resolve) => {
     rl.question(`${question}`, (answer) => {
-      answer ? resolve(answer) : "空文字";
+      resolve(answer);
       rl.close();
     });
   });
