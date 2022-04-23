@@ -10,8 +10,9 @@ A note tool that runs on Node.js and uses git as a database.
 ```mermaid
 flowchart TD
     Presentation --> Application
+    Presentation --> Infrastructure
+    Infrastructure --> Domain
     Application --> Domain
-    Domain --> Infrastructure
 ```
 
 | レイヤー | 責務 |
