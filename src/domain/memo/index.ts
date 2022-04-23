@@ -9,8 +9,8 @@ type Memo = {
 };
 
 /**
- * リポジトリを clone する
+ * メモの一覧を取得する
  * @param remote remote path
  * @param local local path
  */
-export type Clone = (remote: string, local: string) => Promise<string>;
+export type FetchMemos = (remote: string, local: string) => Promise<string>;

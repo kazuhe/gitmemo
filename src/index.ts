@@ -1,4 +1,4 @@
-import clone from "@/infrastructure/repository/clone";
+import clone from "@/infrastructure/memo/fethMemos";
 import { question } from "@/presentation/question";
 
 (async () =>
@@ -9,10 +9,10 @@ import { question } from "@/presentation/question";
     }
 
     clone(repository, "~/Desktop/gitmemo/")
-      .then((result) => {
+      .then((result: any) => {
         console.log("成功", result);
       })
-      .catch((error) => {
+      .catch((error: any) => {
         console.log("失敗", error);
       });
   }))();
