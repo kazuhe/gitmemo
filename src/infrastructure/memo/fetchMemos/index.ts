@@ -1,8 +1,8 @@
 import child_process from "child_process";
-import { Clone } from "@/domain/repository";
+import { FetchMemos } from "@/domain/memo";
 
-export const clone =
-  (exec: typeof child_process.exec): Clone =>
+export const fetchMemos =
+  (exec: typeof child_process.exec): FetchMemos =>
   (remote, local) => {
     return new Promise((resolve, reject) => {
       exec(`git clone ${remote} ${local}`, (error, _, stderr) => {
@@ -15,4 +15,4 @@ export const clone =
     });
   };
 
-export default clone(child_process.exec);
+export default fetchMemos(child_process.exec);
