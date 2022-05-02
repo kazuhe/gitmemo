@@ -22,21 +22,34 @@
 このアプリケーションは git を利用することが前提なので、git の知識も持っている。
 
 - メモ => `Memo`
-- タイトル => `Title`
 - カテゴリー => `Category`
-- キーワード => `Keyword`
-- 検索方法 => `Search Method`
-- 検索結果 => `Search Result`
+- 検索結果 => `SearchResult`
 - ユーザー => `User`
-- 作成日 => `Created date`
-- 更新日 => `Update date`
-- Gitリモートリポジトリ => `Remote Repository`
-- Gitローカルポジトリ => `Local Repository`
+- Gitリポジトリ => `GitRepository`
 - git commit => `Commit`
 - git push => `Push`
 - git clone => `Clone`
-- メモを作成 => `Create memo`
-- メモを作成 => `Delete memo`
-- メモを編集 => `Update memo`
-- Webブラウザー => `Web browser`
+- 作成 => `Create`
+- 作成 => `Delete`
+- 編集 => `Update`
 - プレビュー => `Preview`
+- 検索方法 => `Search`
+
+```mermaid
+classDiagram
+  Create --* Memo
+  Delete --* Memo
+  Update --* Memo
+  Preview --* Memo
+  Category --* Memo
+
+  GitRepository *-- Commit
+  GitRepository *-- Push
+  GitRepository *-- Clone
+
+  MemoList <|-- GitRepository
+  MemoList <|-- SearchResult
+
+  Memo --* MemoList
+  Search --* MemoList
+```
