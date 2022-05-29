@@ -1,5 +1,5 @@
 import { Clone } from "@/domain/git";
-import { Question } from "@/domain/interaction";
+import { Question } from "@/domain/user";
 import os from "os";
 
 const HOME_DIR = os.homedir() + "/gitmemo";

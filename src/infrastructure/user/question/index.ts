@@ -1,4 +1,4 @@
-import { Question } from "@/domain/interaction";
+import { Question } from "@/domain/user";
 import readline from "readline";
 
 export const question: Question = (question) => {
