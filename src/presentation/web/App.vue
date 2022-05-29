@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import HelloWorld from './components/HelloWorld.vue'
+
+const memos = [{body: "Memo の本文"},{body: "これにホームディレクトリのmdファイルを渡す"}]
 </script>
 
 <template>
-  <HelloWorld msg="Hello Vue 3 + TypeScript + Vite" />
+  <HelloWorld :memos="memos" />
 </template>
 
 <style>

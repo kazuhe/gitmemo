@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-defineProps<{ msg: string }>()
+type Memos = {
+  body: string
+}[]
+
+type Props = {
+  memos: Memos
+}
+
+defineProps<Props>()
 
 const count = ref(0)
 </script>
 
 <template>
-  <h1>{{ msg }}</h1>
+  <h2>Memos</h2>
+
+  <p v-for="(memo, index) in memos" :key="index">
+  {{memo.body}}
+  </p>
 
   <p>
     Recommended IDE setup:
