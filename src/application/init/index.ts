@@ -1,4 +1,4 @@
-import { FetchMemos } from "@/domain/memo";
+import { Clone } from "@/domain/git";
 import { Question } from "@/domain/interaction";
 import os from "os";
 
@@ -7,16 +7,13 @@ const HOME_DIR = os.homedir() + "/gitmemo";
 /**
  * GitMemo を初期化する
  */
-type Init = (
-  fetchMemos: FetchMemos,
-  question: Question
-) => () => Promise<boolean>;
+type Init = (clone: Clone, question: Question) => () => Promise<boolean>;
 
-export const init: Init = (fetchMemos, question) => async () => {
+export const init: Init = (clone, question) => async () => {
   const remote = await question("リポジトリの URL を入力してください: ");
   if (!remote) return false;
 
-  await fetchMemos(remote, HOME_DIR)
+  await clone(remote, HOME_DIR)
     .then(() => {
       console.log(`🎉 "${HOME_DIR}" に GitMemo をセットアップしました`);
       return true;

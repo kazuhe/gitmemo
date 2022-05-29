@@ -1,5 +1,6 @@
 /**
  * ユーザーに質問する
+ *
  * @param question 質問
  * @returns 回答
  */

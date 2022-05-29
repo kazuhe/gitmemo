@@ -7,7 +7,7 @@ const commands: { [command: string]: () => Promise<boolean> } = {
 };
 
 if (!commands[arg]) {
-  console.log("\n🙅‍♂️ 存在しないコマンドです");
+  console.log("🙅‍♂️ 存在しないコマンドです");
   process.exit(1);
 }
 
