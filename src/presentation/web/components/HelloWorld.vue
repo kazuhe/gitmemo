@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
 type Memos = {
-  body: string
-}[]
+  body: string;
+}[];
 
 type Props = {
-  memos: Memos
-}
+  memos: Memos;
+};
 
-defineProps<Props>()
+defineProps<Props>();
 
-const count = ref(0)
+const count = ref(0);
 
 /**
  * 指定した url にリソースを要求する
@@ -24,11 +24,12 @@ const count = ref(0)
  * @returns リソース
  */
 type HtmlRequest = (
-  method: 'GET' | 'POST',
+  method: "GET" | "POST",
   url: string,
+
   headers?: HeadersInit,
   body?: BodyInit,
-  init?: Omit<RequestInit, 'method' | 'headers' | 'body'>
+  init?: Omit<RequestInit, "method" | "headers" | "body">
 ) => Promise<string>;
 
 const htmlRequest: HtmlRequest = async (
@@ -42,32 +43,28 @@ const htmlRequest: HtmlRequest = async (
     method,
     // credentials: 'same-origin',
     // mode: 'no-cors',
-    headers: { ...headers, 'Content-Type': 'application/json' },
+    headers: { ...headers, "Content-Type": "application/json" },
     // body: body ? JSON.stringify(body) : null,
-    // ...init,
+    ...init,
   });
   console.log("response", response);
   return response.json();
 };
 
-
-const text = ref('textが入るよ〜')
+const text = ref("textが入るよ〜");
 
 const fetchMemo = async () => {
-  const result =  await htmlRequest(
-    'GET',
-    'http://localhost:8000/foo'
-)
-console.log("result", result)
- text.value = result
-}
+  const result = await htmlRequest("GET", "http://localhost:8000/foo");
+  console.log("result", result);
+  text.value = result;
+};
 </script>
 
 <template>
   <h2>Memos</h2>
 
   <p v-for="(memo, index) in memos" :key="index">
-  {{memo.body}}
+    {{ memo.body }}
   </p>
 
   <p>
