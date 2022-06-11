@@ -1,6 +1,14 @@
 # GitMemo
 A note tool that runs on Node.js and uses git as a database.
 
+## Sub-commands
+### Init
+
+```sh
+npx gitmemo init
+```
+GitMemo を利用するための初期化サブコマンド
+
 ## Architecture
 アーキテクチャはオニオンアーキテクチャの思想をベースにしている。
 
@@ -21,9 +29,8 @@ flowchart TD
 | Application | アプリケーション固有のロジックを実装するレイヤー。Domain 層のインターフェースやロジックを組み合わせてユースケースを実現する。Application 層は特定のクライアントや永続化の技術には依存しない。 |
 | Domain | ビジネスの概念と、ビジネスが置かれた状況に関する情報、およびビジネスルールを表す責務を負う。ビジネスの状況を反映する状態はここで制御され使用されるが、それを格納するという技術的な詳細は、Infrastructure 層に委譲される。この層がビジネスソフトウェアの核心である。 |
 
-## Sub-commands
-### Init
-```sh
-npx gitmemo init
-```
-GitMemo を利用するための初期化サブコマンド
+## Memo
+
+Web preview 用のアプリケーションは Vite + Vue.js
+
+メモを作成・保存などの主要ロジックは TypeScript で記述し、express でサーブする

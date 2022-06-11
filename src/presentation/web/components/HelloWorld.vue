@@ -12,6 +12,55 @@ type Props = {
 defineProps<Props>()
 
 const count = ref(0)
+
+/**
+ * 指定した url にリソースを要求する
+ *
+ * @param method リクエストするメソッド
+ * @param url URL
+ * @param headers ヘッダー
+ * @param body 本文
+ * @param init その他追加したい設定
+ * @returns リソース
+ */
+type HtmlRequest = (
+  method: 'GET' | 'POST',
+  url: string,
+  headers?: HeadersInit,
+  body?: BodyInit,
+  init?: Omit<RequestInit, 'method' | 'headers' | 'body'>
+) => Promise<string>;
+
+const htmlRequest: HtmlRequest = async (
+  method,
+  url,
+  headers,
+  body,
+  init = {}
+) => {
+  const response = await fetch(url, {
+    method,
+    // credentials: 'same-origin',
+    // mode: 'no-cors',
+    headers: { ...headers, 'Content-Type': 'application/json' },
+    // body: body ? JSON.stringify(body) : null,
+    // ...init,
+  });
+  console.log("response", response);
+  return response.json();
+};
+
+
+const text = ref('textが入るよ〜')
+
+const fetchMemo = async () => {
+  const result =  await htmlRequest(
+    'GET',
+    'http://localhost:8000/foo'
+)
+console.log("result", result)
+ text.value = result
+}
 </script>
 
 <template>
@@ -39,10 +88,9 @@ const count = ref(0)
   </p>
 
   <button type="button" @click="count++">count is: {{ count }}</button>
-  <p>
-    Edit
-    <code>components/HelloWorld.vue</code> to test hot module replacement.
-  </p>
+
+  {{ text }}
+  <button type="button" @click="fetchMemo">fetchMemo</button>
 </template>
 
 <style scoped>
