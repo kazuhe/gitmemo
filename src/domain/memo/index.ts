@@ -14,6 +14,9 @@ type Memo = {
 };
 
 /**
- * メモ一覧を取得する
+ * メモをインポートする
+ *
+ * @param name ファイル名
+ * @returns メモの中身
  */
-export type FetchMemos = () => Promise<Memo[]>;
+export type ImportMemo = (name: string) => Memo;
