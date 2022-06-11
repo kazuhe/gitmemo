@@ -10,7 +10,9 @@ const HOME_DIR = os.homedir() + "/gitmemo";
 type Init = (clone: Clone, question: Question) => () => Promise<boolean>;
 
 export const init: Init = (clone, question) => async () => {
-  const remote = await question("リポジトリの URL を入力してください: ").catch(() => "")
+  const remote = await question("リポジトリの URL を入力してください: ").catch(
+    () => ""
+  );
   if (!remote) return false;
 
   return clone(remote, HOME_DIR)
