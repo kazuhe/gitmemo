@@ -32,13 +32,10 @@ type HtmlRequest = (
   init?: Omit<RequestInit, "method" | "headers" | "body">
 ) => Promise<string>;
 
-const htmlRequest: HtmlRequest = async (
-  method,
-  url,
-  headers,
-  body,
-  init = {}
-) => {
+const params = { name: "foo" };
+const query = new URLSearchParams(params);
+
+const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
   const response = await fetch(url, {
     method,
     // credentials: 'same-origin',
@@ -54,7 +51,10 @@ const htmlRequest: HtmlRequest = async (
 const text = ref("textが入るよ〜");
 
 const fetchMemo = async () => {
-  const result = await htmlRequest("GET", "http://localhost:8000/foo");
+  const result = await request(
+    "GET",
+    `http://localhost:8000/api/memos?${query}`
+  );
   console.log("result", result);
   text.value = result;
 };

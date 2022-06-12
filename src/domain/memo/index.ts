@@ -1,17 +1,17 @@
 /**
  * メモのカテゴリー
  */
-type Category = string;
+// type Category = string;
 
 /**
  * メモ
  */
-type Memo = {
-  title: string;
-  body: string[];
-  category?: Category;
-  createdAt: Date;
-};
+// type Memo = {
+//   title: string;
+//   body: string[];
+//   category?: Category;
+//   createdAt: Date;
+// };
 
 /**
  * メモをインポートする
@@ -19,4 +19,4 @@ type Memo = {
  * @param name ファイル名
  * @returns メモの中身
  */
-export type ImportMemo = (name: string) => Memo;
+export type ImportMemo = (name: string) => Promise<string>;
