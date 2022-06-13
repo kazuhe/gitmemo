@@ -12,9 +12,9 @@
     "dev:server": "node ./bin",
     "dev": "npm run dev:client & npm run dev:server",
     "preview": "vite preview",
-    "build": "webpack",
+    "build:server": "npm run build --workspace=server",
     "build:vite": "vue-tsc --noEmit && vite build",
-    "test": "jest"
+    "test:server": "npm run test --workspace=server"
   },
   "author": "kazuhe (https://github.com/kazuhe)",
   "license": "MIT",

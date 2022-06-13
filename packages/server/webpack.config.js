@@ -6,7 +6,7 @@ module.exports = {
   target: "node",
   entry: path.resolve(__dirname, "src/presentation/commands"),
   output: {
-    path: path.join(__dirname, "libs"),
+    path: path.join(__dirname, "..", "..", "libs"),
     filename: "index.js",
   },
   module: {
