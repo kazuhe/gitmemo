@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from "./components/HelloWorld.vue";
 
-const memos = [{body: "Memo の本文"},{body: "これにホームディレクトリのmdファイルを渡す"}]
+const memos = [
+  { body: "Memo の本文" },
+  { body: "これにホームディレクトリのmdファイルを渡す" },
+];
 </script>
 
 <template>
