@@ -15,4 +15,4 @@ jobs:
       - name: install dependencies
         run: npm ci
       - name: unit test
-        run: yarn test
+        run: npm run test
