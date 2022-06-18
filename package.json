@@ -14,7 +14,8 @@
     "preview": "vite preview",
     "build:server": "npm run build --workspace=server",
     "build:vite": "vue-tsc --noEmit && vite build",
-    "test:server": "npm run test --workspace=server"
+    "test:server": "npm run test --workspace=server",
+    "test": "npm run test:server"
   },
   "author": "kazuhe (https://github.com/kazuhe)",
   "license": "MIT",
