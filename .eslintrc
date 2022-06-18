@@ -6,15 +6,26 @@
   },
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
-    "plugin:prettier/recommended"
+    "plugin:vue/vue3-recommended",
+    "plugin:vue/base",
+    "plugin:prettier/recommended",
+    "plugin:jsdoc/recommended"
   ],
-  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "vue",
+    "jsdoc"
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+      "sourceType": "module"
+  },
   "rules": {
     "prettier/prettier": [
       "error",
       {}
     ],
+    "vue/script-setup-uses-vars": "error",
     "no-unused-vars": "off",
     "@typescript-eslint/no-unused-vars": [
       "error"
