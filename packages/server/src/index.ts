@@ -1,4 +1,3 @@
-// import { serve } from "@/application/serve";
 import infrastructure from "@/infrastructure";
 
 const arg = process.argv[2];
