@@ -1,3 +1,3 @@
-import { findMemo } from "./memo";
+import { findMemo, initMemo } from "./memo";
 
-export default { findMemo };
+export default { findMemo, initMemo };

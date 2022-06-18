@@ -1,15 +1,13 @@
-import { Clone } from "@/domain/git";
-import { Question } from "@/domain/user";
 import os from "os";
+import fs from "fs";
+import { ReadMemo, Clone, Question } from "@/domain";
 
 const HOME_DIR = os.homedir() + "/gitmemo";
 
-/**
- * GitMemo を初期化する
- */
-type Init = (clone: Clone, question: Question) => () => Promise<boolean>;
+export const readMemo: ReadMemo = async (name) =>
+  await fs.promises.readFile(name, "utf-8");
 
-export const init: Init = (clone, question) => async () => {
+export const initMemo = async (question: Question, clone: Clone) => {
   const remote = await question("リポジトリの URL を入力してください: ").catch(
     () => ""
   );

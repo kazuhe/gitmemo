@@ -1,33 +1,31 @@
-import { init } from "..";
+import { initMemo } from "./";
 import os from "os";
 
-describe("init", () => {
-  const cloneMock = jest.fn();
+describe("initMemo", () => {
   const questionMock = jest.fn();
+  const cloneMock = jest.fn();
 
   beforeEach(() => {
-    cloneMock.mockClear();
     questionMock.mockClear();
+    cloneMock.mockClear();
   });
 
   describe("question が空文字で解決された場合", () => {
     test("clone が実行されず false を返すこと", async () => {
-      questionMock.mockResolvedValue("");
       cloneMock.mockResolvedValue("");
-      const target = init(cloneMock, questionMock);
+      questionMock.mockResolvedValue("");
 
-      expect(await target()).toBe(false);
+      expect(await initMemo(questionMock, cloneMock)).toBe(false);
       expect(cloneMock).not.toHaveBeenCalled();
     });
   });
 
   describe("question が空文字以外で解決された場合", () => {
     test("clone が適切な引数で実行されること", async () => {
-      questionMock.mockResolvedValue("path/foo");
       cloneMock.mockResolvedValue("");
-      const target = init(cloneMock, questionMock);
+      questionMock.mockResolvedValue("path/foo");
+      await initMemo(questionMock, cloneMock);
 
-      await target();
       expect(cloneMock).toHaveBeenCalledWith(
         "path/foo",
         os.homedir() + "/gitmemo"
@@ -35,29 +33,26 @@ describe("init", () => {
     });
 
     test("clone が解決された場合は true を返すこと", async () => {
-      questionMock.mockResolvedValue("path/foo");
       cloneMock.mockResolvedValue("");
-      const target = init(cloneMock, questionMock);
+      questionMock.mockResolvedValue("path/foo");
 
-      expect(await target()).toBe(true);
+      expect(await initMemo(questionMock, cloneMock)).toBe(true);
     });
 
     test("clone が拒否された場合は false を返すこと", async () => {
-      questionMock.mockResolvedValue("path/foo");
       cloneMock.mockRejectedValue("Error Message");
-      const target = init(cloneMock, questionMock);
+      questionMock.mockResolvedValue("path/foo");
 
-      expect(await target()).toBe(false);
+      expect(await initMemo(questionMock, cloneMock)).toBe(false);
     });
   });
 
   describe("question が拒否された場合", () => {
     test("clone が実行されず false を返すこと", async () => {
-      questionMock.mockRejectedValue("");
       cloneMock.mockResolvedValue("");
-      const target = init(cloneMock, questionMock);
+      questionMock.mockRejectedValue("");
 
-      expect(await target()).toBe(false);
+      expect(await initMemo(questionMock, cloneMock)).toBe(false);
       expect(cloneMock).not.toHaveBeenCalled();
     });
   });

@@ -1,3 +1,3 @@
-import { readMemo } from "./memo";
+import { readMemo, initMemo } from "./memo";
 
-export default { readMemo };
+export default { readMemo, initMemo };

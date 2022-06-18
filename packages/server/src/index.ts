@@ -1,24 +1,17 @@
-import infrastructure from "@/infrastructure";
-
-const arg = process.argv[2];
+import api from "@/infrastructure/api";
+import command from "@/infrastructure/command";
 
 /**
- * サブコマンド
+ * コマンド引数
  */
-// const commands: { [command: string]: () => Promise<boolean> } = {
-//   init,
-// };
+const arg = process.argv[2];
 
 if (arg === undefined) {
-  infrastructure.serve();
+  api.serve();
+} else {
+  if (!command.subCommands[arg]) {
+    console.log("🙅‍♂️ 存在しないコマンドです");
+    process.exit(1);
+  }
+  command.subCommands[arg]();
 }
-
-// if (arg === undefined) {
-//   serve(api);
-// } else {
-//   if (!commands[arg]) {
-//     console.log("🙅‍♂️ 存在しないコマンドです");
-//     process.exit(1);
-//   }
-//   commands[arg]();
-// }
