@@ -32,7 +32,7 @@ type HtmlRequest = (
   init?: Omit<RequestInit, "method" | "headers" | "body">
 ) => Promise<string>;
 
-const params = { name: "foo" };
+const params = { id: "2e75e77a-5e49-4bd4-b8b7-03905a8ab7a9" };
 const query = new URLSearchParams(params);
 
 const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
