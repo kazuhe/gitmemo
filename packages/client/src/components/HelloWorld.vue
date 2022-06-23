@@ -32,8 +32,8 @@ type HtmlRequest = (
   init?: Omit<RequestInit, "method" | "headers" | "body">
 ) => Promise<string>;
 
-const params = { id: "2e75e77a-5e49-4bd4-b8b7-03905a8ab7a9" };
-const query = new URLSearchParams(params);
+// const params = { id: "6b7fe5d9-b540-4b4f-bacd-956d6a102b6a" };
+// const query = new URLSearchParams(params);
 
 const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
   const response = await fetch(url, {
@@ -51,12 +51,19 @@ const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
 const text = ref("textが入るよ〜");
 
 const fetchMemo = async () => {
-  const result = await request(
+  await request(
     "GET",
-    `http://localhost:8000/api/memos?${query}`
-  );
-  console.log("result", result);
-  text.value = result;
+    `/api/memos/413ce815-99a5-4a8a-a238-481bb73518eeq`
+    // `http://localhost:8000/api/memos?${query}`
+  )
+    .then((result) => {
+      console.log("result", result);
+      text.value = result;
+    })
+    .catch((err) => {
+      console.log("result[err]", err);
+      text.value = err;
+    });
 };
 </script>
 
