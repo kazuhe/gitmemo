@@ -13,6 +13,8 @@ defineProps<Props>();
 
 const count = ref(0);
 
+const inputValue = ref("");
+
 /**
  * 指定した url にリソースを要求する
  *
@@ -53,7 +55,7 @@ const text = ref("textが入るよ〜");
 const fetchMemo = async () => {
   await request(
     "GET",
-    `/api/memos/413ce815-99a5-4a8a-a238-481bb73518eeq`
+    `/api/memos/${inputValue.value}`
     // `http://localhost:8000/api/memos?${query}`
   )
     .then((result) => {
@@ -93,8 +95,19 @@ const fetchMemo = async () => {
 
   <button type="button" @click="count++">count is: {{ count }}</button>
 
+  <form style="margin-top: 30px">
+    <label for="memo_id">Memo ID: </label>
+    <input
+      id="memo_id"
+      v-model="inputValue"
+      placeholder="84ab8542-124f-49ea-a747-e616b2bcef7c"
+      type="text"
+    />
+    <button type="button" @click="fetchMemo">fetchMemo</button>
+  </form>
+  <hr />
+
   {{ text }}
-  <button type="button" @click="fetchMemo">fetchMemo</button>
 </template>
 
 <style scoped>
