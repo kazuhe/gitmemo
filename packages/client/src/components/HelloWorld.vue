@@ -46,6 +46,12 @@ const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
     // body: body ? JSON.stringify(body) : null,
     ...init,
   });
+  if (response.ok) {
+    console.log("OK");
+  } else {
+    console.log("NO");
+  }
+
   console.log("response", response);
   return response.json();
 };
@@ -53,11 +59,7 @@ const request: HtmlRequest = async (method, url, headers, body, init = {}) => {
 const text = ref("textが入るよ〜");
 
 const fetchMemo = async () => {
-  await request(
-    "GET",
-    `/api/memos/${inputValue.value}`
-    // `http://localhost:8000/api/memos?${query}`
-  )
+  await request("GET", `/api/memos/${inputValue.value}`)
     .then((result) => {
       console.log("result", result);
       text.value = result;

@@ -3,26 +3,13 @@ import * as controller from "@/interface/controller";
 
 const router = (router: express.Router) => {
   router.get("/memos/:id", async (req, res) => {
-    console.log("server!", req.query);
+    console.log("server!", req.params);
     const id = req.params.id;
-
-    if (typeof id !== "string") {
-      throw new Error(`id「${id}」は不正です`);
-    }
-
     const memo = await controller.getMemo(id);
-
     if (memo === undefined) {
-      throw new Error(`id「${id}」は存在しません`);
-      // res.json(
-      //   new Error(
-      //     JSON.stringify({
-      //       code: 404,
-      //       message: "Not Found",
-      //       description: `id「${id}」は存在しません`,
-      //     })
-      //   )
-      // );
+      const error = new Error(`id「${id}」は存在しません`);
+      console.error(error);
+      res.status(404).json({ message: error.message });
     }
     res.json(memo);
   });
