@@ -21,6 +21,8 @@
       "sourceType": "module"
   },
   "rules": {
+    "jsdoc/require-param-type": "off",
+    "jsdoc/require-returns-type": "off",
     "prettier/prettier": [
       "error",
       {}
