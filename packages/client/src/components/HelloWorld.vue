@@ -69,6 +69,22 @@ const fetchMemo = async () => {
       text.value = err;
     });
 };
+
+const memolist = ref();
+
+const fetchMemos = async () => {
+  await request("GET", `/api/memos`)
+    .then((result) => {
+      console.log("fetchMemos -> result", result);
+      memolist.value = result;
+    })
+    .catch((err) => {
+      console.log("result[err]", err);
+      memolist.value = err;
+    });
+};
+
+fetchMemos();
 </script>
 
 <template>
@@ -78,38 +94,34 @@ const fetchMemo = async () => {
     {{ memo.body }}
   </p>
 
-  <p>
-    Recommended IDE setup:
-    <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>
-    +
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-  </p>
-
-  <p>See <code>README.md</code> for more information.</p>
-
-  <p>
-    <a href="https://vitejs.dev/guide/features.html" target="_blank">
-      Vite Docs
-    </a>
-    |
-    <a href="https://v3.vuejs.org/" target="_blank">Vue 3 Docs</a>
-  </p>
+  <div>
+    <h2>Memo 一覧</h2>
+    <ul>
+      <li v-for="(memo, i) of memolist" :key="i">
+        <div>ID: {{ memo.id }}</div>
+        <div>title: {{ memo.title }}</div>
+        <div>category: {{ memo.category }}</div>
+      </li>
+    </ul>
+  </div>
 
   <button type="button" @click="count++">count is: {{ count }}</button>
 
-  <form style="margin-top: 30px">
-    <label for="memo_id">Memo ID: </label>
-    <input
-      id="memo_id"
-      v-model="inputValue"
-      placeholder="84ab8542-124f-49ea-a747-e616b2bcef7c"
-      type="text"
-    />
-    <button type="button" @click="fetchMemo">fetchMemo</button>
-  </form>
-  <hr />
-
-  {{ text }}
+  <div>
+    <h2>Memo の id を指定して取得</h2>
+    <form>
+      <label for="memo_id">Memo ID: </label>
+      <input
+        id="memo_id"
+        v-model="inputValue"
+        placeholder="84ab8542-124f-49ea-a747-e616b2bcef7c"
+        type="text"
+      />
+      <button type="button" @click="fetchMemo">fetchMemo</button>
+    </form>
+    <hr />
+    {{ text }}
+  </div>
 </template>
 
 <style scoped>

@@ -9,17 +9,17 @@ const HOME_DIR = os.homedir() + "/gitmemo";
  */
 export type MemoRepository = {
   find: (id: string) => Promise<Memo | undefined>;
-  // findAll(): Promise<Memo[]>;
+  findAll(per_page: number, page: number): Promise<Memo[]>;
   // create(memo: Memo): Promise<Memo>;
   // update(memo: Memo): Promise<Memo>;
   // delete(id: number): Promise<void>;
 };
 
-export const memo = (repository: MemoRepository) => {
-  const getMemo = async (id: string) => repository.find(id);
-
-  return { getMemo };
-};
+export const memo = (repository: MemoRepository) => ({
+  getMemo: async (id: string) => repository.find(id),
+  getAllMemo: async (per_page?: number, page?: number) =>
+    repository.findAll(per_page || 30, page || 1),
+});
 
 export const readMemo: ReadMemo = async (name) =>
   await fs.promises.readFile(name, "utf-8");

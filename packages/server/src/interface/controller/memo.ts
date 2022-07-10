@@ -45,3 +45,8 @@ export const getMemo = async (id: string) => {
   console.log("getMemo...", memo);
   return memo;
 };
+
+export const findAllMemo = async (per_page?: number, page?: number) => {
+  const memos = await usecaseMemo.getAllMemo(per_page, page);
+  return memos;
+};
