@@ -1,4 +1,4 @@
-import { arrayChunk, find, findAll } from "..";
+import { arrayChunk, find, findAll, fetchAllPath } from "..";
 import { newMemo } from "@/domain";
 
 jest.mock("../..");
@@ -61,4 +61,48 @@ describe("findAll", () => {
       expect(await findAll(per_page, page)).toStrictEqual(expected);
     }
   );
+});
+
+describe("fetchAllPath", () => {
+  test("memo の path が適切な配列で返されること", async () => {
+    DB.memos = [
+      newMemo("mock1", "foo/"),
+      newMemo("mock2", "foo"),
+      newMemo("mock3", "foo/bar/"),
+      newMemo("mock4", "foo/bar/baz/"),
+      newMemo("mock5", "hoge/"),
+      newMemo("mock6", "hoge/fuga/"),
+      newMemo("mock7", "hoge/fuga/"),
+      newMemo("mock8", ""),
+    ];
+    const expected = [
+      {
+        name: "foo",
+        length: 4,
+        child: [
+          {
+            name: "foo/bar",
+            length: 2,
+            child: [
+              {
+                name: "foo/bar/baz",
+                length: 1,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "hoge",
+        length: 3,
+        child: [
+          {
+            name: "hoge/fuga",
+            length: 2,
+          },
+        ],
+      },
+    ];
+    expect(await fetchAllPath()).toStrictEqual(expected);
+  });
 });

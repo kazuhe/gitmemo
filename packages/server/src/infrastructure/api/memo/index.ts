@@ -3,7 +3,7 @@ import * as controller from "@/interface/controller";
 
 const router = (router: express.Router) => {
   /**
-   * memo 一覧を取得する
+   * memo 一覧
    *
    * クエリパラメータ
    * - per_page 1ページあたりの数 default=30
@@ -30,6 +30,9 @@ const router = (router: express.Router) => {
     res.json(memo);
   });
 
+  /**
+   * 特定の memo
+   */
   router.get("/memos/:id", async (req, res) => {
     console.log("server!", req.params);
     const id = req.params.id;
@@ -42,33 +45,13 @@ const router = (router: express.Router) => {
     res.json(memo);
   });
 
-  // router.get("/memos", async (req, res) => {
-  //   console.log("server!", req.query);
-
-  //   const id = req.query.id;
-
-  //   if (typeof id !== "string") {
-  //     // TODO: ちゃんと error をレスポンスする
-  //     throw new Error("query name がないよ");
-  //   }
-
-  //   const memo = await controller.getMemo(id);
-  //   res.json(memo);
-  // });
+  /**
+   * path 一覧
+   */
+  router.get("/memos/paths/", async (_, res) => {
+    const memo = await controller.fetchAllPath();
+    res.json(memo);
+  });
 };
-
-// const router = (router: express.Router) => {
-//   router.get("/memos", async (req, res) => {
-//     console.log("server!", req.query);
-
-//     if (typeof req.query.name !== "string") {
-//       // TODO: ちゃんと error をレスポンスする
-//       throw new Error("query name がないよ");
-//     }
-
-//     const memo = await controller.findMemo(req.query.name);
-//     res.json(memo);
-//   });
-// };
 
 export default { router };

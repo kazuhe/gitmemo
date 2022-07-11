@@ -85,9 +85,70 @@ const fetchMemos = async () => {
 };
 
 fetchMemos();
+
+const paths = [
+  {
+    name: "foo",
+    length: 20,
+    child: [
+      {
+        name: "foo/barA",
+        length: 15,
+        child: [
+          {
+            name: "foo/barA/bazA",
+            length: 8,
+          },
+          {
+            name: "foo/barA/bazB",
+            length: 7,
+          },
+        ],
+      },
+      {
+        name: "foo/barB",
+        length: 5,
+      },
+    ],
+  },
+  {
+    name: "hoge",
+    length: 3,
+    child: [
+      {
+        name: "hoge/fuga",
+        length: 2,
+      },
+    ],
+  },
+];
 </script>
 
 <template>
+  <div>
+    <ol class="list">
+      <li v-for="(path, i) in paths" :key="i">
+        <div class="flex">
+          {{ path.name }}<span>{{ path.length }}</span>
+        </div>
+        <ol v-if="path.child">
+          <li v-for="(A, AI) in path.child" :key="AI">
+            <div class="flex">
+              {{ A.name }}<span>{{ A.length }}</span>
+            </div>
+            <ol v-if="A.child">
+              <li v-for="(B, BI) in A.child" :key="BI">
+                <div class="flex">
+                  {{ B.name }}<span>{{ B.length }}</span>
+                </div>
+              </li>
+            </ol>
+          </li>
+        </ol>
+      </li>
+    </ol>
+  </div>
+
   <h2>Memos</h2>
 
   <p v-for="(memo, index) in memos" :key="index">
@@ -100,6 +161,7 @@ fetchMemos();
       <li v-for="(memo, i) of memolist" :key="i">
         <div>ID: {{ memo.id }}</div>
         <div>title: {{ memo.title }}</div>
+        <div>path: {{ memo.path }}</div>
         <div>category: {{ memo.category }}</div>
       </li>
     </ul>
@@ -125,6 +187,35 @@ fetchMemos();
 </template>
 
 <style scoped>
+.list {
+  list-style-type: none;
+  padding: 0;
+  width: 400px;
+}
+.list li {
+  margin: 7px 0 7px 0px;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 30px;
+}
+
+.list .flex {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list .flex span {
+  background: #757575;
+  padding: 0 10px;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #fff;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+}
+
 a {
   color: #42b983;
 }

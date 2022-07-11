@@ -4,12 +4,10 @@ import { Memo, ReadMemo, Clone, Question } from "@/domain";
 
 const HOME_DIR = os.homedir() + "/gitmemo";
 
-/**
- * メモデータの永続化ロジック
- */
 export type MemoRepository = {
   find: (id: string) => Promise<Memo | undefined>;
-  findAll(per_page: number, page: number): Promise<Memo[]>;
+  findAll: (per_page: number, page: number) => Promise<Memo[]>;
+  fetchAllPath: () => string[];
   // create(memo: Memo): Promise<Memo>;
   // update(memo: Memo): Promise<Memo>;
   // delete(id: number): Promise<void>;
@@ -19,6 +17,7 @@ export const memo = (repository: MemoRepository) => ({
   getMemo: async (id: string) => repository.find(id),
   getAllMemo: async (per_page?: number, page?: number) =>
     repository.findAll(per_page || 30, page || 1),
+  fetchAllPath: async () => repository.fetchAllPath(),
 });
 
 export const readMemo: ReadMemo = async (name) =>

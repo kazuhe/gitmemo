@@ -3,9 +3,23 @@ import { newMemo } from "@/domain";
 import { MemoRepository } from "@/usecase";
 
 // 初期データ
-const memo1 = newMemo("memo1");
-const memo2 = newMemo("memo2", "fooCategory");
-DB.memos = [memo1, memo2];
+DB.memos = [
+  newMemo("memo1", "home/test"),
+  newMemo("memo2", "home/test", "fooCategory"),
+  newMemo("memo3", "home", "fooCategory"),
+  newMemo("memo4", "home", "bar"),
+  newMemo("memo5", "home", "bar"),
+  newMemo("memo6", "home/sample", "bar"),
+  newMemo("memo7", "home/sample", "bar"),
+  newMemo("memo8", "home/sample", "bar"),
+  newMemo("memo9", "home/sample", "bar"),
+  newMemo("memo10", "home", "bar"),
+  newMemo("memo11", "home", "bar"),
+  newMemo("memo12", "home", "bar"),
+  newMemo("memo13", "home", "bar"),
+  newMemo("memo14", "home", "bar"),
+  newMemo("memo15", "home", "bar"),
+];
 
 console.log("DB.memos", DB.memos);
 
@@ -50,4 +64,43 @@ export const findAll: MemoRepository["findAll"] = async (per_page, page) => {
   return chunk[page - 1];
 };
 
-export const memoRepository: MemoRepository = { find, findAll };
+/**
+ * memo の path 一覧を返す
+ */
+export const fetchAllPath = async () => {
+  // const uniq = (array: any) => {
+  //   return array.filter(function (elem: any, index: any, self: any) {
+  //     return self.indexOf(elem) === index;
+  //   });
+  // };
+
+  // 受け取った引数の末尾に「"/"」がなければ追加する
+  const toEndsWithSlash = (str: string) =>
+    str.endsWith("/") ? str : str + "/";
+
+  // path の一覧
+  const paths = DB.memos.map((memo) => toEndsWithSlash(memo.path));
+  console.log("paths", paths);
+
+  // ユニークな path になった memo 一覧
+  const uniqPathOfMemos = DB.memos.filter((memo, index) => {
+    return paths.indexOf(memo.path) === index;
+  });
+
+  // ユニークな path 一覧
+  const uniqPath = uniqPathOfMemos.map((memo) => memo.path);
+  console.log("uniqPath", uniqPath);
+
+  // 完成
+  const obj = uniqPath.map((path) => {
+    return {
+      name: path,
+    };
+  });
+  console.log("obj", obj);
+
+  return DB.memos;
+};
+
+// @ts-expect-error
+export const memoRepository: MemoRepository = { find, findAll, fetchAllPath };

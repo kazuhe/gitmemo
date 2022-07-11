@@ -50,3 +50,11 @@ export const findAllMemo = async (per_page?: number, page?: number) => {
   const memos = await usecaseMemo.getAllMemo(per_page, page);
   return memos;
 };
+
+/**
+ * path 一覧を取得する
+ */
+export const fetchAllPath = async () => {
+  const paths = await usecaseMemo.fetchAllPath();
+  return paths;
+};
