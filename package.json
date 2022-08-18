@@ -1,0 +1,13 @@
+{
+  "name": "gitmemo",
+  "version": "0.0.0",
+  "description": "",
+  "main": "",
+  "scripts": {
+    "dev": "nitropack dev"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "nitropack": "^0.4.24"
+  }
+}

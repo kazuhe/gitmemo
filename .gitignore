@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# Generated dirs
+.nitro
+.output
+
+# OS
+.DS_Store
