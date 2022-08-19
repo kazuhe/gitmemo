@@ -2,10 +2,14 @@
   "name": "gitmemo",
   "version": "0.0.0",
   "description": "",
-  "main": "",
+  "main": ".output/server/index.mjs",
+  "files": [
+    ".output"
+  ],
   "scripts": {
     "dev": "nitropack dev",
-    "build": "nitropack build"
+    "build": "nitropack build",
+    "pack": "npm run build && ./scripts/playground.sh"
   },
   "license": "MIT",
   "devDependencies": {
