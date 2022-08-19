@@ -1,0 +1,7 @@
+{
+  "name": "playground",
+  "private": "true",
+  "dependencies": {
+    "gitmemo": "file:gitmemo-0.0.0.tgz"
+  }
+}
