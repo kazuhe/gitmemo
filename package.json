@@ -3,13 +3,17 @@
   "version": "0.0.0",
   "description": "",
   "main": ".output/server/index.mjs",
+  "bin": {
+    "gitmemo": ".output/server/index.mjs"
+  },
   "files": [
     ".output"
   ],
   "scripts": {
     "dev": "nitropack dev",
     "build": "nitropack build",
-    "pack": "npm run build && ./scripts/playground.sh"
+    "pack": "npm run build && ./scripts/playground.sh",
+    "prepack": "nitropack build"
   },
   "license": "MIT",
   "devDependencies": {
