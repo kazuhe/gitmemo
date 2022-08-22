@@ -1,3 +1,6 @@
+[![](https://img.shields.io/npm/v/gitmemo.svg)](https://www.npmjs.com/package/gitmemo)
+![](https://img.shields.io/npm/l/gitmemo.svg)
+
 # GitMemo
 
 ## Development
