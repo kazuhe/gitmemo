@@ -3,11 +3,19 @@ node_modules
 package-lock.json
 
 # Generated dirs
-.nitro
-.output
-
-# OS
-.DS_Store
+dist
 
 # playground
 playground/**/*.tgz
+playground/pnpm-lock.yaml
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
