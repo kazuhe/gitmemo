@@ -19,7 +19,7 @@ pnpm install
 pnpm run dev
 ```
 
-### 📦 Create and run npm packages locally
+### 📦 Create and run npm package locally
 
 ローカル環境で npm パッケージを作成して `playground` ディレクトリで実行する。
 
@@ -27,4 +27,4 @@ pnpm run dev
 pnpm run pack
 ```
 
-これは、`npx gitmemo` と同じ挙動になると思っている。
+これは、`npx gitmemo` と同じ挙動になると思っており、Vite で serve されている。
