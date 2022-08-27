@@ -11,6 +11,14 @@ const fetchGreeting = async () => {
   })
 }
 
+const md = ref("")
+const fetchMd = async () => {
+  fetch("http://localhost:3000/api/md/").then((d) => d.json()).then((d) => {
+    console.log("client md", d)
+    md.value = d;
+  })
+}
+
 const count = ref(0)
 </script>
 
@@ -25,6 +33,10 @@ const count = ref(0)
 
     <button type="button" @click="fetchGreeting">fetchGreeting</button>
     <p>greeting: {{ greeting }}</p>
+
+    <button type="button" @click="fetchMd">fetchMd</button>
+    <div v-html="md"></div>
+    {{md}}
   </div>
 
   <p>
