@@ -13,10 +13,10 @@
   ],
   "scripts": {
     "dev": "vite",
-    "dev:server": "node dist-server",
+    "dev:server": "node dist/server",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vue-tsc --noEmit && vite build",
-    "build:server": "tsc -b src/server/tsconfig.json",
+    "build:server": "tsc -b tsconfig.server.json",
     "preview": "vite preview",
     "pack": "npm run build && ./scripts/playground.sh"
   },
@@ -30,6 +30,7 @@
     "vue-tsc": "^0.39.5"
   },
   "devDependencies": {
+    "@tsconfig/strictest": "^1.0.1",
     "@types/express": "^4.17.13"
   }
 }

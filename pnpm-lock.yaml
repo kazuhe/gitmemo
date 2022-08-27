@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@tsconfig/strictest': ^1.0.1
   '@types/express': ^4.17.13
   '@vitejs/plugin-vue': ^3.0.3
   express: ^4.18.1
@@ -18,6 +19,7 @@ dependencies:
   vue-tsc: 0.39.5_typescript@4.7.4
 
 devDependencies:
+  '@tsconfig/strictest': 1.0.1
   '@types/express': 4.17.13
 
 packages:
@@ -57,6 +59,10 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /@tsconfig/strictest/1.0.1:
+    resolution: {integrity: sha512-7O8Q537UQdTZSKEV0f5WRLRFtfL9B8agGqIZrCOwOiWvbjZWPP2rAoZ7LHcwjdG4vnjdleHMEE+ZetM+lhRkcA==}
+    dev: true
 
   /@types/body-parser/1.19.2:
     resolution: {integrity: sha512-ALYone6pm6QmwZoAgeyNksccT9Q4AWZQ6PvfwR37GT6r6FWUPguq6sUmNGSMV2Wr761oQoBxwGGa6DR5o1DC9g==}

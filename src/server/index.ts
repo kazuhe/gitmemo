@@ -6,7 +6,7 @@ import { cwd } from 'node:process';
 const expressApp = express()
 
 expressApp.use(router)
-expressApp.use(express.static(join(cwd(), "dist")))
+expressApp.use(express.static(join(cwd(), "dist/client")))
 
 export const app = expressApp.listen(3000, () => {
   console.log("App is running at http://localhost:3000")

@@ -1,24 +1,16 @@
 {
+  "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.d.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
-  ],
-  "exclude": [
-    "src/server/"
-  ],
-  "references": [
-    {
-      "path": "src/client/tsconfig.json"
-    }
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.vue"
   ]
 }

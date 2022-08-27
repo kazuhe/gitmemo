@@ -4,9 +4,9 @@ import path from "node:path"
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  plugins: [vue()],
   root: path.join(__dirname, "src", "client"),
   build: {
-    outDir: path.join(__dirname, "dist"),
-  },
-  plugins: [vue()],
+    outDir: path.join(__dirname, "dist", "client"),
+  }
 })
