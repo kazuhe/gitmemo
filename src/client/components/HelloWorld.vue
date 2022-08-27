@@ -3,18 +3,28 @@ import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
+const version = ref("")
+
+const fetchVersion = async () => {
+  fetch("http://localhost:3000/api/version/").then((d) => d.json()).then((d: string) => {
+    version.value = d;
+  })
+}
+
 const count = ref(0)
 </script>
 
 <template>
   <h1>{{ msg }}</h1>
-sdasjoho
   <div class="card">
     <button type="button" @click="count++">count is {{ count }}</button>
     <p>
       Edit
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
+
+    <button type="button" @click="fetchVersion">fetchVersion</button>
+    {{ version }}
   </div>
 
   <p>

@@ -2,7 +2,8 @@
   "name": "gitmemo",
   "version": "0.0.0",
   "type": "module",
-  "main": "bin/index.mjs",
+  "main": "dis-server/index.js",
+  "module": "dist/",
   "bin": {
     "gitmemo": "bin/index.mjss"
   },
@@ -12,17 +13,23 @@
   ],
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "dev:server": "node dist-server",
+    "build": "pnpm run build:client && pnpm run build:server",
+    "build:client": "vue-tsc --noEmit && vite build",
+    "build:server": "tsc -b src/server/tsconfig.json",
     "preview": "vite preview",
     "pack": "npm run build && ./scripts/playground.sh"
   },
   "license": "MIT",
   "dependencies": {
-    "vite": "^3.0.9",
     "@vitejs/plugin-vue": "^3.0.3",
-    "vue": "^3.2.37",
-    "@types/node": "^18.7.11",
+    "express": "^4.18.1",
     "typescript": "^4.6.4",
+    "vite": "^3.0.9",
+    "vue": "^3.2.37",
     "vue-tsc": "^0.39.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13"
   }
 }
