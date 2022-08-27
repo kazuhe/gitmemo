@@ -12,8 +12,8 @@
     "dist"
   ],
   "scripts": {
-    "dev": "vite",
-    "dev:server": "node dist/server",
+    "dev": "node dist/server",
+    "dev:client": "vite",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vue-tsc --noEmit && vite build",
     "build:server": "tsc -b tsconfig.server.json",

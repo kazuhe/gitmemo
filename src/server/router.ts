@@ -1,10 +1,11 @@
-import express from "express";
+import { Router } from "express";
 
-const router: express.Router = express.Router()
+export const createRouter = () => {
+  const router = Router()
+  router.get('/api/greeting', (_, res) => {
+    console.log("Requested by client... /api/greeting")
+    res.json({ greeting: 'Hello, world!' })
+  })
 
-router.get('/api/version', (_: express.Request, res: express.Response) => {
-  console.log("/api/version")
-  res.json({ version: '0.0.1' })
-})
-
-export default router
+  return router
+}

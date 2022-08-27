@@ -1,13 +1,17 @@
-import express from 'express'
-import router from "./router.js";
+import express, { Express, Router } from 'express'
+import { createRouter } from "./router.js";
 import { join } from 'node:path'
 import { cwd } from 'node:process';
 
-const expressApp = express()
+const createServer = (root: string, router: Router): Express => {
+  const app = express()
+  app.use(router)
+  app.use(express.static(join(root, "dist/client")))
 
-expressApp.use(router)
-expressApp.use(express.static(join(cwd(), "dist/client")))
+  return app
+}
 
-export const app = expressApp.listen(3000, () => {
-  console.log("App is running at http://localhost:3000")
+const app = createServer(cwd(), createRouter())
+app.listen(3000, () => {
+  console.log("App running at http://localhost:3000")
 })

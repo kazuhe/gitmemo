@@ -3,11 +3,11 @@ import { ref } from 'vue'
 
 defineProps<{ msg: string }>()
 
-const version = ref("")
+const greeting = ref("")
 
-const fetchVersion = async () => {
-  fetch("http://localhost:3000/api/version/").then((d) => d.json()).then((d: string) => {
-    version.value = d;
+const fetchGreeting = async () => {
+  fetch("http://localhost:3000/api/greeting/").then((d) => d.json()).then((d) => {
+    greeting.value = d.greeting;
   })
 }
 
@@ -23,8 +23,8 @@ const count = ref(0)
       <code>components/HelloWorld.vue</code> to test HMR
     </p>
 
-    <button type="button" @click="fetchVersion">fetchVersion</button>
-    {{ version }}
+    <button type="button" @click="fetchGreeting">fetchGreeting</button>
+    <p>greeting: {{ greeting }}</p>
   </div>
 
   <p>
