@@ -2,23 +2,23 @@
   "name": "gitmemo",
   "version": "0.0.0",
   "type": "module",
-  "main": "dis-server/index.js",
-  "module": "dist/",
+  "main": "bin/index.js",
   "bin": {
-    "gitmemo": "bin/index.mjss"
+    "gitmemo": "bin/index.js"
   },
   "files": [
     "bin",
     "dist"
   ],
   "scripts": {
-    "dev": "node dist/server",
+    "dev": "node bin",
     "dev:client": "vite",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vue-tsc --noEmit && vite build",
     "build:server": "tsc -b tsconfig.server.json",
     "preview": "vite preview",
-    "pack": "npm run build && ./scripts/playground.sh"
+    "pack": "scripts/playground.sh",
+    "prepack": "pnpm run build"
   },
   "license": "MIT",
   "dependencies": {
