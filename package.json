@@ -11,14 +11,13 @@
     "dist"
   ],
   "scripts": {
-    "dev": "node bin",
     "dev:client": "vite",
+    "dev:server": "nodemon",
     "build": "pnpm run build:client && pnpm run build:server",
     "build:client": "vue-tsc --noEmit && vite build",
     "build:server": "tsc -b tsconfig.server.json",
-    "preview": "vite preview",
-    "pack": "scripts/playground.sh",
-    "prepack": "pnpm run build"
+    "prepack": "pnpm run build",
+    "pack": "scripts/playground.sh"
   },
   "license": "MIT",
   "dependencies": {
@@ -35,6 +34,7 @@
     "@tsconfig/strictest": "^1.0.1",
     "@types/express": "^4.17.13",
     "@types/marked": "^4.0.6",
-    "@types/sanitize-html": "^2.6.2"
+    "@types/sanitize-html": "^2.6.2",
+    "nodemon": "^2.0.19"
   }
 }
