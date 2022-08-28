@@ -1,12 +1,13 @@
 import express from 'express'
 import { join, dirname } from 'node:path'
-import { cwd } from 'node:process'
+import { cwd, env } from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { createRouter } from "./router.js";
 
 export const server = () => {
   const publicDir = join(dirname(fileURLToPath(import.meta.url)), "..", "client")
-  const root = cwd()
+  const isDev = env["NODE_ENV"] === "dev"
+  const root = isDev ? cwd() + "/playground" : cwd()
 
   const app = express()
   const router = createRouter(root)
