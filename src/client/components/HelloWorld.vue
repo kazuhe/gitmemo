@@ -13,7 +13,9 @@ const fetchGreeting = async () => {
 
 const md = ref("")
 const fetchMd = async () => {
-  fetch("http://localhost:3000/api/md/").then((d) => d.json()).then((d) => {
+  fetch("http://localhost:3000/api/md/", {
+    headers: { 'Content-Type': 'text/html' },
+  }).then((d) => d.text()).then((d) => {
     console.log("client md", d)
     md.value = d;
   })

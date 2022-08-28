@@ -3,7 +3,7 @@ import sanitizeHtml from 'sanitize-html';
 import { marked } from 'marked';
 import { select } from "./repository/select.js";
 
-export const createRouter = () => {
+export const createRouter = (root: string) => {
   const router = Router()
   
   router.get('/api/greeting', (_, res) => {
@@ -14,13 +14,11 @@ export const createRouter = () => {
   router.get('/api/md', async (_, res) => {
     console.log("Requested by client... /api/md")
 
-    // TMP 開発環境と本番でパスを変更する
-    const root = process.cwd();
     const md = await select(`${root}/index.md`)
     const html = sanitizeHtml(marked.parse(md));
-    console.log("html", html)
+    console.log("html", JSON.stringify(html))
 
-    res.json(JSON.stringify(html))
+    res.send(html)
   })
 
   return router
