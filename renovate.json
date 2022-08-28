@@ -4,7 +4,6 @@
     "config:base"
   ],
   "timezone": "Asia/Tokyo",
-  "automerge": true,
   "major": {
     "stabilityDays": 7
   },

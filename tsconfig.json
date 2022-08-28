@@ -1,6 +1,16 @@
 {
-  "extends": "./.nitro/types/tsconfig.json",
+  "extends": "@tsconfig/strictest/tsconfig.json",
   "compilerOptions": {
-    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "allowSyntheticDefaultImports": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
   },
+  "include": [
+    "src/client/**/*.ts",
+    "src/client/**/*.d.ts",
+    "src/client/**/*.vue"
+  ]
 }
