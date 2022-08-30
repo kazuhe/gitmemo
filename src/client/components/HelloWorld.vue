@@ -1,27 +1,31 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref } from "vue";
 
-defineProps<{ msg: string }>()
+defineProps<{ msg: string }>();
 
-const greeting = ref("")
+const greeting = ref("");
 
 const fetchGreeting = async () => {
-  fetch("http://localhost:3000/api/greeting/").then((d) => d.json()).then((d) => {
-    greeting.value = d.greeting;
-  })
-}
+  fetch("http://localhost:3000/api/greeting/")
+    .then((d) => d.json())
+    .then((d) => {
+      greeting.value = d.greeting;
+    });
+};
 
-const md = ref("")
+const md = ref("");
 const fetchMd = async () => {
   fetch("http://localhost:3000/api/md/", {
-    headers: { 'Content-Type': 'text/html' },
-  }).then((d) => d.text()).then((d) => {
-    console.log("client md", d)
-    md.value = d;
+    headers: { "Content-Type": "text/html" },
   })
-}
+    .then((d) => d.text())
+    .then((d) => {
+      console.log("client md", d);
+      md.value = d;
+    });
+};
 
-const count = ref(0)
+const count = ref(0);
 </script>
 
 <template>
@@ -38,7 +42,7 @@ const count = ref(0)
 
     <button type="button" @click="fetchMd">fetchMd</button>
     <div v-html="md"></div>
-    {{md}}
+    {{ md }}
   </div>
 
   <p>
