@@ -5,8 +5,8 @@ import { readFile } from "node:fs/promises";
  */
 export const select = async (from: string): Promise<string> => {
   const result = await readFile(from, "utf-8").catch((error) => {
-    console.error("[ERROR]:", error)
-    return error.message
-  })
+    console.error("[ERROR]:", error);
+    return error.message;
+  });
   return result;
-}
+};

@@ -2,12 +2,8 @@
   "env": {
     "NODE_ENV": "dev"
   },
-  "watch": [
-    "src/server"
-  ],
+  "watch": ["src/server"],
   "ext": "js, ts, json",
-  "ignore": [
-    "**/__tests__/**/*"
-  ],
+  "ignore": ["**/__tests__/**/*"],
   "exec": "pnpm run build:server && node bin"
 }

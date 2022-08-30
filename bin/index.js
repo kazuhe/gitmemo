@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-import { server } from "../dist/server/index.js"
+import { server } from "../dist/server/index.js";
 
-server()
+server();

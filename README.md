@@ -50,18 +50,18 @@ pnpm run pack
 
 オニオンアーキテクチャの思想をベースにしている。
 
-| パッケージ名 | 役割 |
-| -------- | -------- |
-| Commands | コマンドラインでユーザーによって実行される |
-| Api | フロントエンドとやりとりをする |
-| Repositories | 抽象化されたデータ永続化ロジック |
-| Controllers | リクエストを元に Repository を Usecases に DI する |
-| Usecases | アプリケーション固有のロジック（このシステムが何をするか）を表現する |
-| Domain | アプリケーションに関わらず存在するドメインオブジェクトとルール |
-| Components | UI コンポーネント |
-| Pages | ページを表示する |
-| Public/Assets | 画像等の静的ファイル |
-| Composables | ステートフルなロジック |
+| パッケージ名  | 役割                                                                 |
+| ------------- | -------------------------------------------------------------------- |
+| Commands      | コマンドラインでユーザーによって実行される                           |
+| Api           | フロントエンドとやりとりをする                                       |
+| Repositories  | 抽象化されたデータ永続化ロジック                                     |
+| Controllers   | リクエストを元に Repository を Usecases に DI する                   |
+| Usecases      | アプリケーション固有のロジック（このシステムが何をするか）を表現する |
+| Domain        | アプリケーションに関わらず存在するドメインオブジェクトとルール       |
+| Components    | UI コンポーネント                                                    |
+| Pages         | ページを表示する                                                     |
+| Public/Assets | 画像等の静的ファイル                                                 |
+| Composables   | ステートフルなロジック                                               |
 
 ![gitmemo](https://user-images.githubusercontent.com/57878514/187081863-be170b0d-2433-4c6e-9097-288e95dbb518.png)
 
@@ -82,7 +82,7 @@ rectangle src {
         Pages -> PublicAssets
         Pages --> Composables
     }
-    
+
     rectangle Server {
         rectangle Api
         rectangle Commands
@@ -94,9 +94,9 @@ rectangle src {
         Api --> Controllers
         Controllers --> Usecases: Repositoryを注入する
     }
-    
+
     rectangle Domain
-    
+
     Usecases --> Domain
     Repositories --> Domain
     Pages ---> Domain
@@ -106,4 +106,5 @@ rectangle src {
 }
 @enduml
 ```
+
 </details>
