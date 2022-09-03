@@ -2,8 +2,8 @@ import { join, dirname } from "node:path";
 import { cwd, env } from "node:process";
 import { fileURLToPath } from "node:url";
 import express from "express";
+import { createRouter } from "./api/router.js";
 import { createWebsocket } from "./api/websocket.js";
-import { createRouter } from "./router.js";
 
 export const server = () => {
   const publicDir = join(

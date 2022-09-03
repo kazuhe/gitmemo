@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
-import { select } from "./repository/select.js";
+import { select } from "../repository/select.js";
 
 export const createRouter = (root: string) => {
   const router = Router();
