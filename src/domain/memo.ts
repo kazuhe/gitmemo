@@ -1,33 +1,37 @@
-/**
- * ID
- */
-type Id = number;
+import * as z from "zod";
 
-/**
- * パス
- */
-type Path = string;
-
-/**
- * タグ
- */
-type Tags = string[];
+const memoSchema = z.object({
+  id: z.number(),
+  title: z.string(),
+  isStar: z.boolean(),
+  createdAt: z.string(),
+  updatedAt: z.string().nullable(),
+  tags: z.string().array().optional(),
+  body: z.string().optional(),
+});
 
 /**
  * メモ
  */
-type Memo = {
-  id: Id;
-  title: string;
-  path: Path;
-  isStar: boolean;
-  createdAt: Date;
-  updatedAt?: Date;
-  tags?: Tags;
-  body?: string;
+export type Memo = z.infer<typeof memoSchema>;
+
+/**
+ * バリデーション
+ */
+export const isMemo = (v: any): Memo => {
+  try {
+    const memo = memoSchema.parse(v);
+    return memo;
+  } catch (e) {
+    console.error("*** Memo が正しい形式ではありません ***\n", e);
+    if (typeof e === "string") {
+      throw new Error(e);
+    }
+    throw new Error("例外が発生しました");
+  }
 };
 
 /**
  * メモを取得する
  */
-export type ReadMemo = (id: Id, path: Path) => Promise<Memo>;
+export type ReadMemo = (id: number, path: string) => Promise<Memo>;

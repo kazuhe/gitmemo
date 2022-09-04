@@ -15,7 +15,8 @@ export const createRouter = (root: string) => {
     const md = await readMemo(1, root);
     // console.log("html", JSON.stringify(html));
 
-    res.send(md);
+    res.json(md);
+    // res.send(md);
   });
 
   return router;
