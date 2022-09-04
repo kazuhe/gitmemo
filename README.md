@@ -30,7 +30,7 @@ pnpm run dev:client
 pnpm run dev:server
 ```
 
-これは nodemon によって起動され、`src/server` 配下を編集すると自動で再起動される。
+これは nodemon によって起動され、`src/server` または `src/domain` 配下を編集すると自動で再起動される。
 
 build されたフロントエンドのリソースを静的ファイルとして読み込んで利用しており、ブラウザで UI も含め確認することができる（`pnpm run build:client` を実行しない限りフロントエンドの編集は反映されない）。
 
