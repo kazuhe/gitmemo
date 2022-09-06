@@ -1,7 +1,5 @@
 import { Router } from "express";
-import { marked } from "marked";
-import sanitizeHtml from "sanitize-html";
-import { select } from "../repository/select.js";
+import { readMemo } from "../controllers/memo.js";
 
 export const createRouter = (root: string) => {
   const router = Router();
@@ -14,11 +12,11 @@ export const createRouter = (root: string) => {
   router.get("/api/md", async (_, res) => {
     console.log("Requested by client... /api/md");
 
-    const md = await select(`${root}/index.md`);
-    const html = sanitizeHtml(marked.parse(md));
-    console.log("html", JSON.stringify(html));
+    const md = await readMemo(1, root);
+    // console.log("html", JSON.stringify(html));
 
-    res.send(html);
+    res.json(md);
+    // res.send(md);
   });
 
   return router;

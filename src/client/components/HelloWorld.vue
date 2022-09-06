@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import io from "socket.io-client";
 import { ref } from "vue";
+import type { Memo } from "../../domain/memo.js";
 
 const socket = io();
 
@@ -25,14 +26,23 @@ const fetchGreeting = async () => {
 };
 
 const md = ref("");
+const meta = ref({
+  id: 0,
+  title: "",
+  isStar: false,
+  createdAt: "",
+  updatedAt: "",
+  tags: [],
+});
 const fetchMd = async () => {
-  fetch("http://localhost:3000/api/md/", {
-    headers: { "Content-Type": "text/html" },
-  })
-    .then((d) => d.text())
-    .then((d) => {
+  fetch("http://localhost:3000/api/md/")
+    .then((d) => d.json())
+    .then((d: Memo) => {
       console.log("client md", d);
-      md.value = d;
+      if (d.body) {
+        md.value = d.body;
+      }
+      meta.value.id = d.id;
     });
 };
 
@@ -55,8 +65,10 @@ const count = ref(0);
     <p>greeting: {{ greeting }}</p>
 
     <button type="button" @click="fetchMd">fetchMd</button>
-    <div v-html="md"></div>
-    {{ md }}
+    <pre>
+      [Meta]:{{ meta }}
+    </pre>
+    <div v-html="md" />
   </div>
 
   <p>
