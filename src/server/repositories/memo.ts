@@ -15,14 +15,27 @@ export const convertMemo = (d: string): Memo => {
     title: data["title"],
     isStar: data["isStar"],
     createdAt: data["createdAt"],
-    updatedAt: data["updatedAt"],
+    updatedAt: data["updatedAt"] || undefined,
     tags: data["tags"],
     body: html,
   };
-  console.log("content", content);
-  console.log("data", data);
 
-  return isMemo(memo);
+  try {
+    return isMemo(memo);
+  } catch (e) {
+    return {
+      id: 0,
+      title: "Memo の取得に失敗しました",
+      isStar: false,
+      createdAt: "",
+      tags: [],
+      body:
+        "<h2>Memo の取得に失敗しました</h2>\n" +
+        "<p>---</p>\n" +
+        e +
+        "<p>---</p>",
+    };
+  }
 };
 
 export const read: ReadMemo = async (id, path) => {

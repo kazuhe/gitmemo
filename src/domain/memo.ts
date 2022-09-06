@@ -5,9 +5,9 @@ const memoSchema = z.object({
   title: z.string(),
   isStar: z.boolean(),
   createdAt: z.string(),
-  updatedAt: z.string().nullable(),
-  tags: z.string().array().optional(),
-  body: z.string().optional(),
+  updatedAt: z.string().optional(),
+  tags: z.string().array(),
+  body: z.string(),
 });
 
 /**
@@ -23,11 +23,8 @@ export const isMemo = (v: any): Memo => {
     const memo = memoSchema.parse(v);
     return memo;
   } catch (e) {
-    console.error("*** Memo が正しい形式ではありません ***\n", e);
-    if (typeof e === "string") {
-      throw new Error(e);
-    }
-    throw new Error("例外が発生しました");
+    console.error("Memo が正しい形式ではありません", e);
+    throw new Error("Memo が正しい形式ではありません");
   }
 };
 
