@@ -9,8 +9,11 @@ const sendSocket = () => {
   socket.emit("redisterName", "testName");
 };
 
+const paths = ref<string[]>([]);
 socket.on("notifeNewComer", (message) => {
   console.log("Socket", message);
+  paths.value = [""];
+  paths.value = message;
 });
 
 defineProps<{ msg: string }>();
@@ -51,6 +54,9 @@ const count = ref(0);
 
 <template>
   <h1>{{ msg }}</h1>
+  <ul>
+    <li v-for="path of paths" :key="path">{{ path }}</li>
+  </ul>
   <div>
     <button @click="sendSocket">sendSocket</button>
   </div>
