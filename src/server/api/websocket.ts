@@ -20,16 +20,11 @@ export const createWebsocket = (app: Express, root: string): http.Server => {
       console.log("redisterName", name);
     });
 
-    const emitter: Emitter = (payload) => {
-      socket.emit("notifeNewComer", payload);
+    const pathEmitter: Emitter = (payload) => {
+      socket.emit("memoPath", payload);
     };
 
-    readPaths(root, emitter);
-
-    // setTimeout(() => {
-    //   // client へ送信
-    //   socket.emit("notifeNewComer", "Hey!!");
-    // }, 3000);
+    readPaths(root, pathEmitter);
   });
 
   return server;

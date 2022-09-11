@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import io from "socket.io-client";
+import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { Memo } from "../../domain/memo.js";
+import type { Memo, Path } from "../../domain/memo.js";
 
 const socket = io();
 
@@ -9,10 +9,11 @@ const sendSocket = () => {
   socket.emit("redisterName", "testName");
 };
 
-const paths = ref<string[]>([]);
-socket.on("notifeNewComer", (message) => {
+const paths = ref<Path>([]);
+
+socket.on("memoPath", (message) => {
   console.log("Socket", message);
-  paths.value = [""];
+  paths.value = [];
   paths.value = message;
 });
 
@@ -54,9 +55,30 @@ const count = ref(0);
 
 <template>
   <h1>{{ msg }}</h1>
+
+  <h2>Memo 一覧</h2>
   <ul>
-    <li v-for="path of paths" :key="path">{{ path }}</li>
+    <!-- とりあえず -->
+    <li v-for="path of paths" :key="path.name">
+      {{ path.name }}
+      <ul v-if="path.children.length">
+        <li v-for="child of path.children" :key="child.name">
+          {{ child.name }}
+          <ul v-if="child.children.length">
+            <li v-for="childB of child.children" :key="childB.name">
+              {{ childB.name }}
+              <ul v-if="childB.children.length">
+                <li v-for="childC of childB.children" :key="childC.name">
+                  {{ childC.name }}
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
   </ul>
+
   <div>
     <button @click="sendSocket">sendSocket</button>
   </div>

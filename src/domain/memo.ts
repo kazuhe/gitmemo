@@ -1,5 +1,15 @@
 import * as z from "zod";
 
+/**
+ * ツリー形式のパスのひと塊
+ */
+export type PathChunk = { name: string; children: PathChunk[] };
+
+/**
+ * ツリー形式のパス一覧
+ */
+export type Path = PathChunk[];
+
 const memoSchema = z.object({
   id: z.number(),
   title: z.string(),
