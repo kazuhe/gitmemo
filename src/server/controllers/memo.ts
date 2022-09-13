@@ -8,6 +8,5 @@ export const readMemo = async (id: number, path: string) => {
 };
 
 export const readPaths = (root: string, emitter: PathEmitter) => {
-  // const watcher = memoWatcher(root);
   usecase.readPaths(root, emitter);
 };

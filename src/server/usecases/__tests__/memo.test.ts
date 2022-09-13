@@ -1,5 +1,5 @@
 import { describe, test, expect } from "vitest";
-import { rootRelativePath, TreeChunk, toTree } from "../memo.js";
+import { rootRelativePath, toTree } from "../memo.js";
 
 describe("rootRelativePath", () => {
   test.each([
@@ -39,7 +39,7 @@ describe("toTree", () => {
       "/FolderE/FolderH/ItemE",
       "/FolderI",
     ];
-    const expected: TreeChunk[] = [
+    const expected = [
       {
         name: "FolderA",
         children: [

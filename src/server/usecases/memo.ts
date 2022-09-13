@@ -15,11 +15,6 @@ export const rootRelativePath = (
 };
 
 /**
- * tree のひと塊
- */
-export type TreeChunk = { name: string; children: TreeChunk[] };
-
-/**
  * tree 構造に変換する
  */
 export const toTree = (paths: string[]): Path => {
@@ -75,7 +70,7 @@ export const pathHandler = (
 /**
  * パス一覧を返す
  */
-export const readPaths = (root: string, emitter: PathEmitter) => {
+export const readPaths = (root: string, emitter: PathEmitter): void => {
   const watcher = chokidar.watch(root, {
     ignored: [
       "**/node_modules/**",
@@ -94,25 +89,19 @@ export const readPaths = (root: string, emitter: PathEmitter) => {
     emitter(toTree(paths));
   });
 
-  watcher.on(
-    "all",
-    (
-      event: "add" | "addDir" | "change" | "unlink" | "unlinkDir",
-      path: string
-    ) => {
-      console.log(`[${event}] ${rootRelativePath(root, path)}`);
+  watcher.on("all", (event, path) => {
+    console.log(`[${event}] ${rootRelativePath(root, path)}`);
 
-      const relativePath = rootRelativePath(root, path);
-      if (relativePath !== undefined) {
-        pathHandler(event, paths, relativePath);
-      }
-      console.log("paths", paths);
-
-      if (isReady) {
-        emitter(toTree(paths));
-      }
+    const relativePath = rootRelativePath(root, path);
+    if (relativePath !== undefined) {
+      pathHandler(event, paths, relativePath);
     }
-  );
+    console.log("paths", paths);
+
+    if (isReady) {
+      emitter(toTree(paths));
+    }
+  });
 };
 
 export const usecase = {
