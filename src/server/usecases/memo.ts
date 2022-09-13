@@ -1,6 +1,6 @@
 import { relative } from "node:path";
 import chokidar from "chokidar";
-import type { Path } from "../../domain/memo.js";
+import type { Path } from "../../domain/model/memo.js";
 import type { Emitter } from "../types.js";
 
 /**

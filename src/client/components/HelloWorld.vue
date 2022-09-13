@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { Memo, Path } from "../../domain/memo.js";
+import type { Memo, Path } from "../../domain/model/memo.js";
 
 const socket = io();
 
