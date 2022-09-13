@@ -57,7 +57,7 @@ pnpm run pack
 | Repositories  | 抽象化されたデータ永続化ロジック                                     |
 | Controllers   | リクエストを元に Repository を Usecases に DI する                   |
 | Usecases      | アプリケーション固有のロジック（このシステムが何をするか）を表現する |
-| Domain        | アプリケーションに関わらず存在するドメインオブジェクトとルール       |
+| Domain        | ドメインオブジェクトとルール                                         |
 | Components    | UI コンポーネント                                                    |
 | Pages         | ページを表示する                                                     |
 | Public/Assets | 画像等の静的ファイル                                                 |
