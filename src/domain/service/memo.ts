@@ -1,9 +1,19 @@
-import { Memo, memoSchema } from "../model/memo.js";
+import { Memo, Path, memoSchema } from "../model/memo.js";
 
 /**
  * メモを取得する
  */
 export type ReadMemo = (id: number, path: string) => Promise<Memo>;
+
+/**
+ * クライアントに Emit する
+ */
+export type Emitter<T> = (args: T) => void;
+
+/**
+ * クライアントに Path を Emit する
+ */
+export type PathEmitter = Emitter<Path>;
 
 /**
  * バリデーション

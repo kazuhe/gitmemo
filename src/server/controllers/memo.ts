@@ -1,5 +1,5 @@
+import type { PathEmitter } from "../../domain/service/memo.js";
 import { memoRepository } from "../repositories/memo.js";
-import type { Emitter } from "../types.js";
 import { usecase } from "../usecases/memo.js";
 
 export const readMemo = async (id: number, path: string) => {
@@ -7,7 +7,7 @@ export const readMemo = async (id: number, path: string) => {
   return memo;
 };
 
-export const readPaths = (root: string, emitter: Emitter) => {
+export const readPaths = (root: string, emitter: PathEmitter) => {
   // const watcher = memoWatcher(root);
   usecase.readPaths(root, emitter);
 };

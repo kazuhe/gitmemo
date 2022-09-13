@@ -1,7 +1,7 @@
 import { relative } from "node:path";
 import chokidar from "chokidar";
 import type { Path } from "../../domain/model/memo.js";
-import type { Emitter } from "../types.js";
+import type { PathEmitter } from "../../domain/service/memo.js";
 
 /**
  * ルート相対パスを抽出する
@@ -75,7 +75,7 @@ export const pathHandler = (
 /**
  * パス一覧を返す
  */
-export const readPaths = (root: string, emitter: Emitter) => {
+export const readPaths = (root: string, emitter: PathEmitter) => {
   const watcher = chokidar.watch(root, {
     ignored: [
       "**/node_modules/**",
