@@ -19,7 +19,7 @@ export const server = () => {
   app.use(router);
   app.use(express.static(publicDir));
 
-  const server = createWebsocket(app);
+  const server = createWebsocket(app, root);
 
   server.listen(3000, () => {
     console.log("App is running at http://localhost:3000");

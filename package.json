@@ -26,14 +26,16 @@
     "format": "prettier . --write"
   },
   "license": "MIT",
+  "packageManager": "pnpm@7.9.0",
   "dependencies": {
+    "chokidar": "^3.5.3",
     "express": "4.18.1",
     "marked": "4.0.19",
     "sanitize-html": "2.7.1",
     "socket.io": "4.5.2",
     "socket.io-client": "^4.5.2",
-    "vue": "3.2.37",
-    "vue-tsc": "0.39.5"
+    "vue": "3.2.39",
+    "vue-tsc": "0.40.13"
   },
   "devDependencies": {
     "@tsconfig/strictest": "1.0.1",
