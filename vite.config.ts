@@ -9,4 +9,13 @@ export default defineConfig({
   build: {
     outDir: path.join(__dirname, "dist", "client"),
   },
+  server: {
+    proxy: {
+      "/api": "http://localhost:3000",
+      "/socket.io": {
+        target: "ws://localhost:3000",
+        ws: true,
+      },
+    },
+  },
 });

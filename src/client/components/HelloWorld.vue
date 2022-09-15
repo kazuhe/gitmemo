@@ -22,7 +22,7 @@ defineProps<{ msg: string }>();
 const greeting = ref("");
 
 const fetchGreeting = async () => {
-  fetch("http://localhost:3000/api/greeting/")
+  fetch("/api/greeting/")
     .then((d) => d.json())
     .then((d) => {
       greeting.value = d.greeting;
@@ -39,7 +39,7 @@ const meta = ref({
   tags: [],
 });
 const fetchMd = async () => {
-  fetch("http://localhost:3000/api/md/")
+  fetch("/api/md/")
     .then((d) => d.json())
     .then((d: Memo) => {
       console.log("client md", d);
