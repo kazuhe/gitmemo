@@ -60,16 +60,22 @@ const count = ref(0);
   <ul>
     <!-- とりあえず -->
     <li v-for="path of paths" :key="path.name">
-      {{ path.name }}
+      <router-link :to="`/memo/${path.name}`">{{ path.name }}</router-link>
       <ul v-if="path.children.length">
         <li v-for="child of path.children" :key="child.name">
-          {{ child.name }}
+          <router-link :to="`/memo/${child.name}`">{{
+            child.name
+          }}</router-link>
           <ul v-if="child.children.length">
             <li v-for="childB of child.children" :key="childB.name">
-              {{ childB.name }}
+              <router-link :to="`/memo/${childB.name}`">{{
+                childB.name
+              }}</router-link>
               <ul v-if="childB.children.length">
                 <li v-for="childC of childB.children" :key="childC.name">
-                  {{ childC.name }}
+                  <router-link :to="`/memo/${childC.name}`">{{
+                    childC.name
+                  }}</router-link>
                 </li>
               </ul>
             </li>
