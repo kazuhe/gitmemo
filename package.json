@@ -10,9 +10,6 @@
     "bin",
     "dist"
   ],
-  "engines": {
-    "npm": ">=8.15.0"
-  },
   "scripts": {
     "dev:client": "vite",
     "dev:server": "nodemon",

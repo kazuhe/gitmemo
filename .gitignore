@@ -8,6 +8,7 @@ dist
 # playground
 playground/**/*.tgz
 playground/pnpm-lock.yaml
+playground/package.json
 
 # Editor directories and files
 .idea
