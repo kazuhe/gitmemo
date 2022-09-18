@@ -7,7 +7,7 @@ import { readPaths } from "../controllers/memo.js";
 /**
  * WebSocket サーバーを作成する
  */
-export const createWebsocket = (app: Express, root: string): http.Server => {
+export const createWebsocket = (app: Express): http.Server => {
   const server = http.createServer(app);
   const io = new Server(server);
 
@@ -23,7 +23,7 @@ export const createWebsocket = (app: Express, root: string): http.Server => {
       socket.emit("memoPath", payload);
     };
 
-    readPaths(root, pathEmitter);
+    readPaths(pathEmitter);
   });
 
   return server;

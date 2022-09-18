@@ -9,6 +9,6 @@ export const readMemo = async (id: number, path: string) => {
   return memo;
 };
 
-export const readPaths = (root: string, emitter: PathEmitter) => {
-  memoUsecase.readPaths(root, emitter);
+export const readPaths = (emitter: PathEmitter) => {
+  memoUsecase.readPaths(emitter);
 };

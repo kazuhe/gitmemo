@@ -27,3 +27,14 @@ export const isMemo = (v: unknown): Memo => {
     throw new Error("Memo が正しい形式ではありません");
   }
 };
+
+/**
+ * メモの永続化ロジック
+ */
+export type MemoRepository = {
+  // create
+  read: ReadMemo;
+  // readAll
+  // update
+  // delete
+};
