@@ -1,7 +1,19 @@
 import { relative } from "node:path";
+import { cwd, env } from "node:process";
 import chokidar from "chokidar";
-import type { Path } from "../../domain/models/memo.js";
-import type { PathEmitter } from "../../domain/services/memo.js";
+import type { Memo, Path } from "../../domain/models/memo.js";
+import type { PathEmitter, ReadMemo } from "../../domain/services/memo.js";
+
+/**
+ * メモの永続化ロジック
+ */
+export type MemoRepository = {
+  // create
+  read: ReadMemo;
+  // readAll
+  // update
+  // delete
+};
 
 /**
  * ルート相対パスを抽出する
@@ -68,7 +80,7 @@ export const pathHandler = (
 };
 
 /**
- * パス一覧を返す
+ * パス一覧を読み込む
  */
 export const readPaths = (root: string, emitter: PathEmitter): void => {
   const watcher = chokidar.watch(root, {
@@ -104,6 +116,45 @@ export const readPaths = (root: string, emitter: PathEmitter): void => {
   });
 };
 
-export const usecase = {
-  readPaths,
+/**
+ * メモを読み込む
+ */
+const readMemo =
+  (repository: MemoRepository, watcher: chokidar.FSWatcher) =>
+  async (id: number, path: string): Promise<Memo> => {
+    const memo = await repository.read(id, path);
+    console.log("watcher", watcher);
+    return memo;
+  };
+
+/**
+ * メモのユースケース
+ */
+export const usecase = (repository: MemoRepository) => {
+  /**
+   * 開発環境かどうか
+   */
+  const isDev = env["NODE_ENV"] === "dev";
+
+  /**
+   * メモが存在するルートパス
+   */
+  const root = isDev ? cwd() + "/playground" : cwd();
+
+  /**
+   * メモを監視する
+   */
+  const watcher = chokidar.watch(root, {
+    ignored: [
+      "**/node_modules/**",
+      "**/**/*.json",
+      "**/**/*.js",
+      "**/**/*.tgz",
+    ],
+  });
+
+  return {
+    readMemo: readMemo(repository, watcher),
+    readPaths,
+  };
 };
