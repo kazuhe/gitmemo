@@ -1,7 +1,7 @@
 import http from "http";
 import type { Express } from "express";
 import { Server } from "socket.io";
-import type { PathEmitter } from "../../domain/service/memo.js";
+import type { PathEmitter } from "../../domain/services/memo.js";
 import { readPaths } from "../controllers/memo.js";
 
 /**

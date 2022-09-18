@@ -1,4 +1,4 @@
-import { Memo, Path, memoSchema } from "../model/memo.js";
+import { Memo, Path, memoSchema } from "../models/memo.js";
 
 /**
  * メモを取得する

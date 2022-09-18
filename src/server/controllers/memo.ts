@@ -1,4 +1,4 @@
-import type { PathEmitter } from "../../domain/service/memo.js";
+import type { PathEmitter } from "../../domain/services/memo.js";
 import { memoRepository } from "../repositories/memo.js";
 import { usecase } from "../usecases/memo.js";
 

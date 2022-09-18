@@ -2,8 +2,8 @@ import { readFile } from "node:fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
-import type { Memo } from "../../domain/model/memo.js";
-import { isMemo, ReadMemo } from "../../domain/service/memo.js";
+import type { Memo } from "../../domain/models/memo.js";
+import { isMemo, ReadMemo } from "../../domain/services/memo.js";
 
 /**
  * 読み込んだデータを Memo に変換する

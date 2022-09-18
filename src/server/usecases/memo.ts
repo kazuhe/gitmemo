@@ -1,7 +1,7 @@
 import { relative } from "node:path";
 import chokidar from "chokidar";
-import type { Path } from "../../domain/model/memo.js";
-import type { PathEmitter } from "../../domain/service/memo.js";
+import type { Path } from "../../domain/models/memo.js";
+import type { PathEmitter } from "../../domain/services/memo.js";
 
 /**
  * ルート相対パスを抽出する
