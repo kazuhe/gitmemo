@@ -1,11 +1,11 @@
-import type { PathEmitter } from "../../domain/services/memo.js";
+import type { MemoEmitter, PathEmitter } from "../../domain/services/memo.js";
 import { memoRepository } from "../repositories/memo.js";
 import { usecase } from "../usecases/memo.js";
 
 const memoUsecase = usecase(memoRepository);
 
-export const readMemo = async (id: number, path: string) => {
-  const memo = await memoUsecase.readMemo(id, path);
+export const readMemo = async (memoEmitter: MemoEmitter, path: string) => {
+  const memo = await memoUsecase.readMemo(memoEmitter, path);
   return memo;
 };
 

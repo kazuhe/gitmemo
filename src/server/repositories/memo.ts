@@ -43,8 +43,8 @@ export const convertMemo = (d: string): Memo => {
   }
 };
 
-export const read: ReadMemo = async (id, path) => {
-  const memo = await readFile(`${path}/${id}.md`, "utf-8")
+export const read: ReadMemo = async (path: string) => {
+  const memo = await readFile(path, "utf-8")
     .then((result) => convertMemo(result))
     .catch((error) => {
       console.error("[ERROR]:", error);

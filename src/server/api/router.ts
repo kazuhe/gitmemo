@@ -1,5 +1,4 @@
 import { Router } from "express";
-import { readMemo } from "../controllers/memo.js";
 
 export const createRouter = (root: string) => {
   const router = Router();
@@ -9,15 +8,15 @@ export const createRouter = (root: string) => {
     res.json({ greeting: "Hello, world!" });
   });
 
-  router.get("/api/md", async (_, res) => {
-    console.log("Requested by client... /api/md");
+  console.log(root);
+  // router.get("/api/md", async (_, res) => {
+  //   console.log("Requested by client... /api/md");
 
-    const md = await readMemo(1, root);
-    // console.log("html", JSON.stringify(html));
+  //   // const md = await readMemo(1, root);
+  //   // console.log("html", JSON.stringify(html));
 
-    res.json(md);
-    // res.send(md);
-  });
+  //   // res.send(md);
+  // });
 
   return router;
 };

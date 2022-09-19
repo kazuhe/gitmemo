@@ -3,7 +3,7 @@ import { Memo, Path, memoSchema } from "../models/memo.js";
 /**
  * メモを取得する
  */
-export type ReadMemo = (id: number, path: string) => Promise<Memo>;
+export type ReadMemo = (path: string) => Promise<Memo>;
 
 /**
  * クライアントに Emit する
@@ -14,6 +14,11 @@ export type Emitter<T> = (args: T) => void;
  * クライアントに Path を Emit する
  */
 export type PathEmitter = Emitter<Path>;
+
+/**
+ * クライアントに Memo を Emit する
+ */
+export type MemoEmitter = Emitter<Memo>;
 
 /**
  * バリデーション

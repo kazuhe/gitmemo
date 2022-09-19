@@ -3,6 +3,7 @@ import { cwd, env } from "node:process";
 import chokidar from "chokidar";
 import type { Memo, Path } from "../../domain/models/memo.js";
 import type {
+  MemoEmitter,
   PathEmitter,
   MemoRepository,
 } from "../../domain/services/memo.js";
@@ -106,10 +107,15 @@ export const readPaths =
  * メモを読み込む
  */
 const readMemo =
-  (repository: MemoRepository, watcher: () => chokidar.FSWatcher) =>
-  async (id: number, path: string): Promise<Memo> => {
-    const memo = await repository.read(id, path);
+  (
+    root: string,
+    repository: MemoRepository,
+    watcher: () => chokidar.FSWatcher
+  ) =>
+  async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
+    const memo = await repository.read(`${root}${path}`);
     console.log("watcher", watcher);
+    MemoEmitter(memo);
     return memo;
   };
 
@@ -135,7 +141,7 @@ export const usecase = (repository: MemoRepository) => {
     });
 
   return {
-    readMemo: readMemo(repository, watcher),
+    readMemo: readMemo(root, repository, watcher),
     readPaths: readPaths(root, watcher),
   };
 };
