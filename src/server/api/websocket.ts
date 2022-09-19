@@ -1,13 +1,13 @@
 import http from "http";
 import type { Express } from "express";
 import { Server } from "socket.io";
-import type { PathEmitter } from "../../domain/service/memo.js";
-import { readPaths } from "../controllers/memo.js";
+import type { MemoEmitter, PathEmitter } from "../../domain/services/memo.js";
+import { readPaths, readMemo } from "../controllers/memo.js";
 
 /**
  * WebSocket サーバーを作成する
  */
-export const createWebsocket = (app: Express, root: string): http.Server => {
+export const createWebsocket = (app: Express): http.Server => {
   const server = http.createServer(app);
   const io = new Server(server);
 
@@ -19,11 +19,18 @@ export const createWebsocket = (app: Express, root: string): http.Server => {
       console.log("redisterName", name);
     });
 
+    const memoEmitter: MemoEmitter = (payload) => {
+      socket.emit("memo", payload);
+    };
+    socket.on("memo", (path: string) => {
+      console.log("memo", path);
+      readMemo(memoEmitter, path);
+    });
+
     const pathEmitter: PathEmitter = (payload) => {
       socket.emit("memoPath", payload);
     };
-
-    readPaths(root, pathEmitter);
+    readPaths(pathEmitter);
   });
 
   return server;

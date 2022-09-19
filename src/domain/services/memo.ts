@@ -1,9 +1,9 @@
-import { Memo, Path, memoSchema } from "../model/memo.js";
+import { Memo, Path, memoSchema } from "../models/memo.js";
 
 /**
  * メモを取得する
  */
-export type ReadMemo = (id: number, path: string) => Promise<Memo>;
+export type ReadMemo = (path: string) => Promise<Memo>;
 
 /**
  * クライアントに Emit する
@@ -16,6 +16,11 @@ export type Emitter<T> = (args: T) => void;
 export type PathEmitter = Emitter<Path>;
 
 /**
+ * クライアントに Memo を Emit する
+ */
+export type MemoEmitter = Emitter<Memo>;
+
+/**
  * バリデーション
  */
 export const isMemo = (v: unknown): Memo => {
@@ -26,4 +31,15 @@ export const isMemo = (v: unknown): Memo => {
     console.error("Memo が正しい形式ではありません", e);
     throw new Error("Memo が正しい形式ではありません");
   }
+};
+
+/**
+ * メモの永続化ロジック
+ */
+export type MemoRepository = {
+  // create
+  read: ReadMemo;
+  // readAll
+  // update
+  // delete
 };

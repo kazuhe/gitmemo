@@ -1,7 +1,12 @@
 import { relative } from "node:path";
+import { cwd, env } from "node:process";
 import chokidar from "chokidar";
-import type { Path } from "../../domain/model/memo.js";
-import type { PathEmitter } from "../../domain/service/memo.js";
+import type { Memo, Path } from "../../domain/models/memo.js";
+import type {
+  MemoEmitter,
+  PathEmitter,
+  MemoRepository,
+} from "../../domain/services/memo.js";
 
 /**
  * ルート相対パスを抽出する
@@ -68,42 +73,81 @@ export const pathHandler = (
 };
 
 /**
- * パス一覧を返す
+ * パス一覧を読み込む
  */
-export const readPaths = (root: string, emitter: PathEmitter): void => {
-  const watcher = chokidar.watch(root, {
-    ignored: [
-      "**/node_modules/**",
-      "**/**/*.json",
-      "**/**/*.js",
-      "**/**/*.tgz",
-    ],
-  });
+export const readPaths =
+  (root: string, watcher: () => chokidar.FSWatcher) =>
+  (emitter: PathEmitter): void => {
+    const paths: string[] = [];
+    let isReady = false;
 
-  const paths: string[] = [];
-  let isReady = false;
-
-  watcher.on("ready", () => {
-    console.log("Ready!");
-    isReady = true;
-    emitter(toTree(paths));
-  });
-
-  watcher.on("all", (event, path) => {
-    console.log(`[${event}] ${rootRelativePath(root, path)}`);
-
-    const relativePath = rootRelativePath(root, path);
-    if (relativePath !== undefined) {
-      pathHandler(event, paths, relativePath);
-    }
-    console.log("paths", paths);
-
-    if (isReady) {
+    const watch = watcher();
+    watch.on("ready", () => {
+      console.log("Ready!");
+      isReady = true;
       emitter(toTree(paths));
-    }
-  });
-};
+    });
 
-export const usecase = {
-  readPaths,
+    watch.on("all", (event, path) => {
+      console.log(`[${event}] ${rootRelativePath(root, path)}`);
+
+      const relativePath = rootRelativePath(root, path);
+      if (relativePath !== undefined) {
+        pathHandler(event, paths, relativePath);
+      }
+      console.log("paths", paths);
+
+      if (isReady) {
+        emitter(toTree(paths));
+      }
+    });
+  };
+
+/**
+ * メモを読み込む
+ */
+const readMemo =
+  (
+    root: string,
+    repository: MemoRepository,
+    watcher: () => chokidar.FSWatcher
+  ) =>
+  async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
+    const read = () => repository.read(`${root}${path}`);
+    const memo = await read();
+    console.log("watcher", watcher);
+    MemoEmitter(await read());
+
+    const watch = watcher();
+    watch.on("change", async () => {
+      MemoEmitter(await read());
+    });
+    return memo;
+  };
+
+/**
+ * メモのユースケース
+ */
+export const usecase = (repository: MemoRepository) => {
+  /* 開発環境かどうか */
+  const isDev = env["NODE_ENV"] === "dev";
+
+  /* メモが存在するルートパス */
+  const root = isDev ? cwd() + "/playground" : cwd();
+
+  /* メモを監視する */
+  const watcher = () =>
+    chokidar.watch(root, {
+      ignored: [
+        "**/node_modules/**",
+        "**/**/*.json",
+        "**/**/*.js",
+        "**/**/*.tgz",
+      ],
+    });
+
+  return {
+    readMemo: readMemo(root, repository, watcher),
+    readPaths: readPaths(root, watcher),
+  };
 };
