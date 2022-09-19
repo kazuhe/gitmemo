@@ -113,9 +113,15 @@ const readMemo =
     watcher: () => chokidar.FSWatcher
   ) =>
   async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
-    const memo = await repository.read(`${root}${path}`);
+    const read = () => repository.read(`${root}${path}`);
+    const memo = await read();
     console.log("watcher", watcher);
-    MemoEmitter(memo);
+    MemoEmitter(await read());
+
+    const watch = watcher();
+    watch.on("change", async () => {
+      MemoEmitter(await read());
+    });
     return memo;
   };
 
