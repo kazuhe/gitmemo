@@ -8,6 +8,7 @@ extends:
   - plugin:import/recommended
   - plugin:import/typescript
   - plugin:@typescript-eslint/recommended
+  - plugin:tailwindcss/recommended
   - prettier
 parser: vue-eslint-parser
 parserOptions:
@@ -18,6 +19,7 @@ plugins:
   - vue
   - "@typescript-eslint"
   - import
+  - tailwindcss
 rules:
   vue/multi-word-component-names: off
   import/no-unresolved: off
