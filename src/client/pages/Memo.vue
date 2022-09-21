@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { ref } from "vue";
 // import { useRoute } from "vue-router";
 import type { Memo } from "../../domain/models/memo.js";
+import GLayout from "../components/GLayout/index.vue";
 
 const socket = io();
 // const route = useRoute();
@@ -37,15 +38,20 @@ const meta = ref({
 </script>
 
 <template>
-  <div>
-    <h2>Memo</h2>
-    <pre>ID = {{ $route.params }}</pre>
-    <p>ID = {{ $route.params["id"] }}</p>
-    <router-link to="/">to Home</router-link>
+  <g-layout>
+    <template #main>
+      <div class="p-2">
+        <h2>Memo</h2>
+        <pre>ID = {{ $route.params }}</pre>
+        <p>ID = {{ $route.params["id"] }}</p>
+        <router-link to="/">to Home</router-link>
 
-    <pre>
+        <pre>
       [Meta]:{{ meta }}
-    </pre>
-    <div v-html="md" />
-  </div>
+    </pre
+        >
+        <div v-html="md" />
+      </div>
+    </template>
+  </g-layout>
 </template>

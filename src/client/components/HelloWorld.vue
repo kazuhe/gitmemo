@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { Memo, Path } from "../../domain/models/memo.js";
+import type { Path } from "../../domain/models/memo.js";
+import GAccordion from "./GAccordion/index.vue";
 
 const socket = io();
 
@@ -29,26 +30,10 @@ const fetchGreeting = async () => {
     });
 };
 
-const md = ref("");
-const meta = ref({
-  id: 0,
-  title: "",
-  isStar: false,
-  createdAt: "",
-  updatedAt: "",
-  tags: [],
-});
-const fetchMd = async () => {
-  fetch("/api/md/")
-    .then((d) => d.json())
-    .then((d: Memo) => {
-      console.log("client md", d);
-      if (d.body) {
-        md.value = d.body;
-      }
-      meta.value.id = d.id;
-    });
-};
+/**
+ * Markdown ファイルかどうか
+ */
+const isMarkdown = (path: string): boolean => /.md$/.test(path);
 
 const count = ref(0);
 </script>
@@ -57,31 +42,41 @@ const count = ref(0);
   <h1>{{ msg }}</h1>
 
   <h2>Memo 一覧</h2>
-  <ul>
+
+  <ul class="w-80">
     <!-- とりあえず -->
     <li v-for="path of paths" :key="path.name">
-      <router-link :to="`${path.name}`">{{ path.name }}</router-link>
-      <ul v-if="path.children.length">
-        <li v-for="child of path.children" :key="child.name">
-          <router-link :to="`/${path.name}/${child.name}`"
-            >{{ path.name }}/{{ child.name }}</router-link
-          >
-          <ul v-if="child.children.length">
-            <li v-for="childB of child.children" :key="childB.name">
-              <router-link :to="`${path.name}/${child.name}/${childB.name}`"
-                >{{ path.name }}/{{ child.name }}/{{ childB.name }}</router-link
-              >
-              <ul v-if="childB.children.length">
-                <li v-for="childC of childB.children" :key="childC.name">
-                  <router-link :to="`/${childC.name}`">{{
-                    childC.name
-                  }}</router-link>
-                </li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-      </ul>
+      <router-link v-if="isMarkdown(path.name)" :to="`${path.name}`">{{
+        path.name
+      }}</router-link>
+
+      <g-accordion v-else :title="path.name">
+        <ul v-if="path.children.length">
+          <li v-for="child of path.children" :key="child.name">
+            <router-link
+              v-if="isMarkdown(child.name)"
+              :to="`/${path.name}/${child.name}`"
+              >{{ path.name }}/{{ child.name }}</router-link
+            >
+            <ul v-if="child.children.length">
+              <li v-for="childB of child.children" :key="childB.name">
+                <router-link :to="`${path.name}/${child.name}/${childB.name}`"
+                  >{{ path.name }}/{{ child.name }}/{{
+                    childB.name
+                  }}</router-link
+                >
+                <ul v-if="childB.children.length">
+                  <li v-for="childC of childB.children" :key="childC.name">
+                    <router-link :to="`/${childC.name}`">{{
+                      childC.name
+                    }}</router-link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </g-accordion>
     </li>
   </ul>
 
@@ -97,12 +92,6 @@ const count = ref(0);
 
     <button type="button" @click="fetchGreeting">fetchGreeting</button>
     <p>greeting: {{ greeting }}</p>
-
-    <button type="button" @click="fetchMd">fetchMd</button>
-    <pre>
-      [Meta]:{{ meta }}
-    </pre>
-    <div v-html="md" />
   </div>
 
   <p>

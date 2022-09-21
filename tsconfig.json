@@ -6,7 +6,8 @@
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
     "resolveJsonModule": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "jsx": "preserve"
   },
   "include": [
     "src/client/**/*.ts",
