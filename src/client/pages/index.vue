@@ -1,20 +1,25 @@
 <script setup lang="ts">
+import GLayout from "../components/GLayout/index.vue";
 import HelloWorld from "../components/HelloWorld.vue";
 </script>
 
 <template>
-  <div>
-    <h2>Home</h2>
-    <div>
-      <a href="https://vitejs.dev" target="_blank">
-        <img src="/vite.svg" class="logo" alt="Vite logo" />
-      </a>
-      <a href="https://vuejs.org/" target="_blank">
-        <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
-      </a>
-    </div>
-    <hello-world msg="Vite + Vue" />
-  </div>
+  <g-layout>
+    <template #main>
+      <div class="p-2">
+        <h2>Home</h2>
+        <div>
+          <a href="https://vitejs.dev" target="_blank">
+            <img src="/vite.svg" class="logo" alt="Vite logo" />
+          </a>
+          <a href="https://vuejs.org/" target="_blank">
+            <img src="../assets/vue.svg" class="logo vue" alt="Vue logo" />
+          </a>
+        </div>
+        <hello-world msg="Vite + Vue" />
+      </div>
+    </template>
+  </g-layout>
 </template>
 
 <style scoped>
