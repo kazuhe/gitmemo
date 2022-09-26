@@ -58,18 +58,17 @@ const count = ref(0);
               :to="`/${path.name}/${child.name}`"
               >{{ path.name }}/{{ child.name }}</router-link
             >
-            <p v-else>{{ `/${path.name}/${child.name}` }}</p>
+            <p v-else>{{ child.fullPath }}</p>
             <ul v-if="child.children.length">
               <li v-for="childB of child.children" :key="childB.name">
-                <router-link :to="`${path.name}/${child.name}/${childB.name}`"
-                  >{{ path.name }}/{{ child.name }}/{{
-                    childB.name
-                  }}</router-link
+                <router-link
+                  :to="`${path.name}/${child.name}/${childB.name}`"
+                  >{{ childB.fullPath }}</router-link
                 >
                 <ul v-if="childB.children.length">
                   <li v-for="childC of childB.children" :key="childC.name">
                     <router-link :to="`/${childC.name}`">{{
-                      childC.name
+                      childC.fullPath
                     }}</router-link>
                   </li>
                 </ul>

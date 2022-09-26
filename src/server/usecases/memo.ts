@@ -31,10 +31,12 @@ export const toTree = (paths: string[]): Path => {
 
     // 初期化する
     let current = tree;
+    let fullPath = "";
 
     pathParts.map((part) => {
       // 既に存在していれば変数に入る
       const existing = current.find((el) => el.name === part);
+      fullPath = fullPath + "/" + part;
 
       if (existing) {
         // current を下の階層に変更する
@@ -42,6 +44,7 @@ export const toTree = (paths: string[]): Path => {
       } else {
         const chunk = {
           name: part,
+          fullPath,
           children: [],
         };
         // 参照渡しなので tree に追加される

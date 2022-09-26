@@ -3,7 +3,7 @@ import * as z from "zod";
 /**
  * ツリー形式のパスのひと塊
  */
-type PathChunk = { name: string; children: PathChunk[] };
+type PathChunk = { name: string; fullPath: string; children: PathChunk[] };
 
 /**
  * ツリー形式のパス一覧
