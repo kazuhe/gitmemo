@@ -63,19 +63,21 @@ export const pathHandler = (
   paths: string[],
   path: string
 ) => {
-  if (event === "add" || event === "addDir") {
+  // if (event === "add" || event === "addDir") {
+  if (event === "addDir") {
     paths.push(path);
   }
-  if (event === "unlink" || event === "unlinkDir") {
+  // if (event === "unlink" || event === "unlinkDir") {
+  if (event === "unlinkDir") {
     const index = paths.indexOf(path);
     paths.splice(index, 1);
   }
 };
 
 /**
- * パス一覧を読み込む
+ * 全てのディレクトリを読み込む
  */
-export const readPaths =
+export const readAllDirectory =
   (root: string, watcher: () => chokidar.FSWatcher) =>
   (emitter: PathEmitter): void => {
     const paths: string[] = [];
@@ -148,6 +150,6 @@ export const usecase = (repository: MemoRepository) => {
 
   return {
     readMemo: readMemo(root, repository, watcher),
-    readPaths: readPaths(root, watcher),
+    readAllDirectory: readAllDirectory(root, watcher),
   };
 };
