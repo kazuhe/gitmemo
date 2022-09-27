@@ -120,7 +120,6 @@ const readMemo =
   async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
     const read = () => repository.read(`${root}${path}`);
     const memo = await read();
-    console.log("watcher", watcher);
     MemoEmitter(await read());
 
     const watch = watcher();
@@ -128,6 +127,17 @@ const readMemo =
       MemoEmitter(await read());
     });
     return memo;
+  };
+
+/**
+ * 特定の階層のメモ一覧を取得する
+ */
+const readMemoListOfDir =
+  (root: string, repository: MemoRepository) =>
+  async (dirPath: string): Promise<Memo[]> => {
+    const memoList = await repository.readMemoListOfDir(root + dirPath);
+    console.log(memoList);
+    return memoList;
   };
 
 /**
@@ -154,5 +164,7 @@ export const usecase = (repository: MemoRepository) => {
   return {
     readMemo: readMemo(root, repository, watcher),
     readAllDirectory: readAllDirectory(root, watcher),
+    readMemoListOfDir: readMemoListOfDir(root, repository),
+    // readMemoListOfDir: readMemoListOfDir(root, repository, watcher),
   };
 };

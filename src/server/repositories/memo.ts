@@ -1,4 +1,4 @@
-import { readFile } from "node:fs/promises";
+import { readFile, readdir } from "node:fs/promises";
 import matter from "gray-matter";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
@@ -7,6 +7,7 @@ import {
   isMemo,
   MemoRepository,
   ReadMemo,
+  ReadMemoListOfDir,
 } from "../../domain/services/memo.js";
 
 /**
@@ -43,14 +44,25 @@ export const convertMemo = (d: string): Memo => {
   }
 };
 
-export const read: ReadMemo = async (path: string) => {
-  const memo = await readFile(path, "utf-8")
-    .then((result) => convertMemo(result))
-    .catch((error) => {
-      console.error("[ERROR]:", error);
-      return error.message;
-    });
+export const read: ReadMemo = async (path) => {
+  const rawMemo = await readFile(path, "utf-8");
+  const memo = convertMemo(rawMemo);
   return memo;
 };
 
-export const memoRepository: MemoRepository = { read };
+/**
+ * Markdown ファイルかどうか
+ */
+const isMarkdown = (path: string): boolean => /.md$/.test(path);
+
+export const readMemoListOfDir: ReadMemoListOfDir = async (dirPath) => {
+  const direntList = await readdir(dirPath, { withFileTypes: true });
+  const pathList = direntList
+    .filter((dirent) => !dirent.isDirectory())
+    .filter((dirent) => isMarkdown(dirent.name))
+    .map((dirent) => `${dirPath}/${dirent.name}`);
+  const memoList = await Promise.all(pathList.map(read));
+  return memoList;
+};
+
+export const memoRepository: MemoRepository = { read, readMemoListOfDir };
