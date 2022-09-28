@@ -31,6 +31,11 @@ const fetchGreeting = async () => {
 };
 
 /**
+ * .md を取り除く
+ */
+const trimMd = (path: string): string => path.replace(/.md$/, "");
+
+/**
  * Markdown ファイルかどうか
  */
 const isMarkdown = (path: string): boolean => /.md$/.test(path);
@@ -63,13 +68,17 @@ showMemoList();
   <div class="flex">
     <ul class="w-80">
       <!-- とりあえず -->
+      <li @click="showMemoList()">TOP</li>
       <li v-for="path of paths" :key="path.name">
         <router-link v-if="isMarkdown(path.name)" :to="`${path.name}`">{{
           path.name
         }}</router-link>
 
-        <g-accordion v-else :title="path.name">
-          <button @click="showMemoList(path.fullPath)">showMemoList</button>
+        <g-accordion
+          v-else
+          :title="path.name"
+          @click="showMemoList(path.fullPath)"
+        >
           <ul v-if="path.children.length">
             <li v-for="child of path.children" :key="child.name">
               <router-link
@@ -103,7 +112,15 @@ showMemoList();
       <ul>
         <li v-for="(memo, i) of memoList" :key="i">
           <div class="border">
-            {{ memo }}
+            <router-link
+              :to="{
+                name: 'Memo',
+                params: { id: encodeURI(memo.path) },
+              }"
+            >
+              <h2 class="text-lg font-bold">{{ trimMd(memo.title) }}</h2>
+              {{ memo }}
+            </router-link>
           </div>
         </li>
       </ul>

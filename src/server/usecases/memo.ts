@@ -113,12 +113,12 @@ export const readAllDirectory =
  */
 const readMemo =
   (
-    root: string,
+    // root: string,
     repository: MemoRepository,
     watcher: () => chokidar.FSWatcher
   ) =>
   async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
-    const read = () => repository.read(`${root}${path}`);
+    const read = () => repository.read(path);
     const memo = await read();
     MemoEmitter(await read());
 
@@ -133,12 +133,15 @@ const readMemo =
  * 特定の階層のメモ一覧を取得する
  */
 const readMemoListOfDir =
-  (root: string, repository: MemoRepository) =>
-  async (dirPath: string): Promise<Memo[]> => {
-    const memoList = await repository.readMemoListOfDir(root + dirPath);
-    console.log(memoList);
-    return memoList;
-  };
+  // (root: string, repository: MemoRepository) =>
+
+
+    (repository: MemoRepository) =>
+    async (dirPath: string): Promise<Memo[]> => {
+      const memoList = await repository.readMemoListOfDir(dirPath);
+      console.log("memoList", memoList);
+      return memoList;
+    };
 
 /**
  * メモのユースケース
@@ -162,9 +165,9 @@ export const usecase = (repository: MemoRepository) => {
     });
 
   return {
-    readMemo: readMemo(root, repository, watcher),
+    readMemo: readMemo(repository, watcher),
     readAllDirectory: readAllDirectory(root, watcher),
-    readMemoListOfDir: readMemoListOfDir(root, repository),
+    readMemoListOfDir: readMemoListOfDir(repository),
     // readMemoListOfDir: readMemoListOfDir(root, repository, watcher),
   };
 };

@@ -12,12 +12,13 @@ export type Path = PathChunk[];
 
 export const memoSchema = z.object({
   id: z.number(),
+  path: z.string(),
   title: z.string(),
   isStar: z.boolean(),
   createdAt: z.string(),
   updatedAt: z.string().optional(),
   tags: z.string().array(),
-  body: z.string(),
+  body: z.string().optional(),
 });
 
 /**

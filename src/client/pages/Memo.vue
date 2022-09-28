@@ -1,20 +1,20 @@
 <script setup lang="ts">
 import { io } from "socket.io-client";
 import { ref } from "vue";
-// import { useRoute } from "vue-router";
+import { useRoute } from "vue-router";
 import type { Memo } from "../../domain/models/memo.js";
 import GLayout from "../components/GLayout/index.vue";
 
 const socket = io();
-// const route = useRoute();
+const route = useRoute();
+const id = route.params["id"];
+const decodeId = typeof id === "string" ? decodeURI(id) : "";
 
 const locate = window.location.pathname;
 console.log("locate", locate);
 
 const sendSocket = () => {
-  // const path = route.params["path1"];
-
-  socket.emit("memo", locate);
+  socket.emit("memo", decodeId);
   socket.on("memo", (memo: Memo) => {
     console.log("client md", memo);
     if (memo.body) {
@@ -44,6 +44,7 @@ const meta = ref({
         <h2>Memo</h2>
         <pre>ID = {{ $route.params }}</pre>
         <p>ID = {{ $route.params["id"] }}</p>
+        <p>decodeId = {{ decodeId }}</p>
         <router-link to="/">to Home</router-link>
 
         <pre>
