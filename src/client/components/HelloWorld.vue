@@ -49,12 +49,9 @@ const showMemoList = async (dirPath?: string) => {
   console.log(params);
   const query = new URLSearchParams(params);
   console.log(query.toString());
-
   const response = await fetch(`/api/memos?${query}`);
-  console.log(response);
   const list = await response.json();
   memoList.value = list;
-  console.log(memoList);
 };
 
 showMemoList();

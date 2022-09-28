@@ -133,15 +133,12 @@ const readMemo =
  * 特定の階層のメモ一覧を取得する
  */
 const readMemoListOfDir =
-  // (root: string, repository: MemoRepository) =>
-
-
-    (repository: MemoRepository) =>
-    async (dirPath: string): Promise<Memo[]> => {
-      const memoList = await repository.readMemoListOfDir(dirPath);
-      console.log("memoList", memoList);
-      return memoList;
-    };
+  (repository: MemoRepository) =>
+  async (dirPath: string): Promise<Memo[]> => {
+    const memoList = await repository.readMemoListOfDir(dirPath);
+    console.log("memoList", memoList);
+    return memoList;
+  };
 
 /**
  * メモのユースケース
@@ -168,6 +165,5 @@ export const usecase = (repository: MemoRepository) => {
     readMemo: readMemo(repository, watcher),
     readAllDirectory: readAllDirectory(root, watcher),
     readMemoListOfDir: readMemoListOfDir(repository),
-    // readMemoListOfDir: readMemoListOfDir(root, repository, watcher),
   };
 };
