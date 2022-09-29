@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { readMemoListOfDir } from "../controllers/memo.js";
 
 export const createRouter = (root: string) => {
   const router = Router();
@@ -9,6 +10,21 @@ export const createRouter = (root: string) => {
   });
 
   console.log(root);
+
+  router.get("/api/memos", async (req, res) => {
+    const path = req.query["path"];
+
+    if (path === undefined) {
+      const memoList = await readMemoListOfDir("");
+      res.json(memoList);
+    }
+
+    if (typeof path === "string") {
+      const memoList = await readMemoListOfDir(path);
+      res.json(memoList);
+    }
+  });
+
   // router.get("/api/md", async (_, res) => {
   //   console.log("Requested by client... /api/md");
 

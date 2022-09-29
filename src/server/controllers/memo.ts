@@ -9,6 +9,10 @@ export const readMemo = async (memoEmitter: MemoEmitter, path: string) => {
   return memo;
 };
 
-export const readPaths = (emitter: PathEmitter) => {
-  memoUsecase.readPaths(emitter);
+export const readAllDirectory = (emitter: PathEmitter) => {
+  memoUsecase.readAllDirectory(emitter);
+};
+
+export const readMemoListOfDir = (dirPath: string) => {
+  return memoUsecase.readMemoListOfDir(dirPath);
 };

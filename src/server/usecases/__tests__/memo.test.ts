@@ -42,16 +42,26 @@ describe("toTree", () => {
     const expected = [
       {
         name: "FolderA",
+        fullPath: "/FolderA",
         children: [
           {
             name: "FolderB",
+            fullPath: "/FolderA/FolderB",
             children: [
               {
                 name: "FolderD",
-                children: [{ name: "ItemA", children: [] }],
+                fullPath: "/FolderA/FolderB/FolderD",
+                children: [
+                  {
+                    name: "ItemA",
+                    fullPath: "/FolderA/FolderB/FolderD/ItemA",
+                    children: [],
+                  },
+                ],
               },
               {
                 name: "ItemB",
+                fullPath: "/FolderA/FolderB/ItemB",
                 children: [],
               },
             ],
@@ -60,24 +70,46 @@ describe("toTree", () => {
       },
       {
         name: "FolderE",
+        fullPath: "/FolderE",
         children: [
           {
             name: "FolderF",
+            fullPath: "/FolderE/FolderF",
             children: [
               {
                 name: "FolderG",
+                fullPath: "/FolderE/FolderF/FolderG",
                 children: [
-                  { name: "ItemC", children: [] },
-                  { name: "ItemD", children: [] },
+                  {
+                    name: "ItemC",
+                    fullPath: "/FolderE/FolderF/FolderG/ItemC",
+                    children: [],
+                  },
+                  {
+                    name: "ItemD",
+                    fullPath: "/FolderE/FolderF/FolderG/ItemD",
+                    children: [],
+                  },
                 ],
               },
             ],
           },
-          { name: "FolderH", children: [{ name: "ItemE", children: [] }] },
+          {
+            name: "FolderH",
+            fullPath: "/FolderE/FolderH",
+            children: [
+              {
+                name: "ItemE",
+                fullPath: "/FolderE/FolderH/ItemE",
+                children: [],
+              },
+            ],
+          },
         ],
       },
       {
         name: "FolderI",
+        fullPath: "/FolderI",
         children: [],
       },
     ];

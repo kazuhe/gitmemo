@@ -31,10 +31,12 @@ export const toTree = (paths: string[]): Path => {
 
     // 初期化する
     let current = tree;
+    let fullPath = "";
 
     pathParts.map((part) => {
       // 既に存在していれば変数に入る
       const existing = current.find((el) => el.name === part);
+      fullPath = fullPath + "/" + part;
 
       if (existing) {
         // current を下の階層に変更する
@@ -42,6 +44,7 @@ export const toTree = (paths: string[]): Path => {
       } else {
         const chunk = {
           name: part,
+          fullPath,
           children: [],
         };
         // 参照渡しなので tree に追加される
@@ -63,19 +66,21 @@ export const pathHandler = (
   paths: string[],
   path: string
 ) => {
-  if (event === "add" || event === "addDir") {
+  // if (event === "add" || event === "addDir") {
+  if (event === "addDir") {
     paths.push(path);
   }
-  if (event === "unlink" || event === "unlinkDir") {
+  // if (event === "unlink" || event === "unlinkDir") {
+  if (event === "unlinkDir") {
     const index = paths.indexOf(path);
     paths.splice(index, 1);
   }
 };
 
 /**
- * パス一覧を読み込む
+ * 全てのディレクトリを読み込む
  */
-export const readPaths =
+export const readAllDirectory =
   (root: string, watcher: () => chokidar.FSWatcher) =>
   (emitter: PathEmitter): void => {
     const paths: string[] = [];
@@ -108,14 +113,13 @@ export const readPaths =
  */
 const readMemo =
   (
-    root: string,
+    // root: string,
     repository: MemoRepository,
     watcher: () => chokidar.FSWatcher
   ) =>
   async (MemoEmitter: MemoEmitter, path: string): Promise<Memo> => {
-    const read = () => repository.read(`${root}${path}`);
+    const read = () => repository.read(path);
     const memo = await read();
-    console.log("watcher", watcher);
     MemoEmitter(await read());
 
     const watch = watcher();
@@ -123,6 +127,17 @@ const readMemo =
       MemoEmitter(await read());
     });
     return memo;
+  };
+
+/**
+ * 特定の階層のメモ一覧を取得する
+ */
+const readMemoListOfDir =
+  (repository: MemoRepository) =>
+  async (dirPath: string): Promise<Memo[]> => {
+    const memoList = await repository.readMemoListOfDir(dirPath);
+    console.log("memoList", memoList);
+    return memoList;
   };
 
 /**
@@ -147,7 +162,8 @@ export const usecase = (repository: MemoRepository) => {
     });
 
   return {
-    readMemo: readMemo(root, repository, watcher),
-    readPaths: readPaths(root, watcher),
+    readMemo: readMemo(repository, watcher),
+    readAllDirectory: readAllDirectory(root, watcher),
+    readMemoListOfDir: readMemoListOfDir(repository),
   };
 };

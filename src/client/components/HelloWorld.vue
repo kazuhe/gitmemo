@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { Path } from "../../domain/models/memo.js";
+import type { Path, Memo } from "../../domain/models/memo.js";
 import GAccordion from "./GAccordion/index.vue";
 
 const socket = io();
@@ -31,11 +31,30 @@ const fetchGreeting = async () => {
 };
 
 /**
+ * .md を取り除く
+ */
+const trimMd = (path: string): string => path.replace(/.md$/, "");
+
+/**
  * Markdown ファイルかどうか
  */
 const isMarkdown = (path: string): boolean => /.md$/.test(path);
 
 const count = ref(0);
+
+const memoList = ref<Memo[]>();
+
+const showMemoList = async (dirPath?: string) => {
+  const params = { path: dirPath ? dirPath : "" };
+  console.log(params);
+  const query = new URLSearchParams(params);
+  console.log(query.toString());
+  const response = await fetch(`/api/memos?${query}`);
+  const list = await response.json();
+  memoList.value = list;
+};
+
+showMemoList();
 </script>
 
 <template>
@@ -43,42 +62,67 @@ const count = ref(0);
 
   <h2>Memo 一覧</h2>
 
-  <ul class="w-80">
-    <!-- とりあえず -->
-    <li v-for="path of paths" :key="path.name">
-      <router-link v-if="isMarkdown(path.name)" :to="`${path.name}`">{{
-        path.name
-      }}</router-link>
+  <div class="flex">
+    <ul class="w-80">
+      <!-- とりあえず -->
+      <li @click="showMemoList()">TOP</li>
+      <li v-for="path of paths" :key="path.name">
+        <router-link v-if="isMarkdown(path.name)" :to="`${path.name}`">{{
+          path.name
+        }}</router-link>
 
-      <g-accordion v-else :title="path.name">
-        <ul v-if="path.children.length">
-          <li v-for="child of path.children" :key="child.name">
+        <g-accordion
+          v-else
+          :title="path.name"
+          @click="showMemoList(path.fullPath)"
+        >
+          <ul v-if="path.children.length">
+            <li v-for="child of path.children" :key="child.name">
+              <router-link
+                v-if="isMarkdown(child.name)"
+                :to="`/${path.name}/${child.name}`"
+                >{{ path.name }}/{{ child.name }}</router-link
+              >
+              <p v-else>{{ child.fullPath }}</p>
+              <ul v-if="child.children.length">
+                <li v-for="childB of child.children" :key="childB.name">
+                  <router-link
+                    :to="`${path.name}/${child.name}/${childB.name}`"
+                    >{{ childB.fullPath }}</router-link
+                  >
+                  <ul v-if="childB.children.length">
+                    <li v-for="childC of childB.children" :key="childC.name">
+                      <router-link :to="`/${childC.name}`">{{
+                        childC.fullPath
+                      }}</router-link>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </g-accordion>
+      </li>
+    </ul>
+
+    <div>
+      <ul>
+        <li v-for="(memo, i) of memoList" :key="i">
+          <div class="border">
             <router-link
-              v-if="isMarkdown(child.name)"
-              :to="`/${path.name}/${child.name}`"
-              >{{ path.name }}/{{ child.name }}</router-link
+              :to="{
+                name: 'Memo',
+                params: { id: encodeURI(memo.path) },
+              }"
             >
-            <ul v-if="child.children.length">
-              <li v-for="childB of child.children" :key="childB.name">
-                <router-link :to="`${path.name}/${child.name}/${childB.name}`"
-                  >{{ path.name }}/{{ child.name }}/{{
-                    childB.name
-                  }}</router-link
-                >
-                <ul v-if="childB.children.length">
-                  <li v-for="childC of childB.children" :key="childC.name">
-                    <router-link :to="`/${childC.name}`">{{
-                      childC.name
-                    }}</router-link>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </g-accordion>
-    </li>
-  </ul>
+              <h2 class="text-lg font-bold">{{ trimMd(memo.title) }}</h2>
+              {{ memo }}
+            </router-link>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
 
   <div>
     <button @click="sendSocket">sendSocket</button>

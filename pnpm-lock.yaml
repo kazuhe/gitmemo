@@ -10,6 +10,7 @@ specifiers:
   '@vitejs/plugin-vue': 3.1.0
   autoprefixer: ^10.4.11
   chokidar: ^3.5.3
+  date-fns: ^2.29.3
   eslint: 8.23.0
   eslint-config-prettier: 8.5.0
   eslint-plugin-import: 2.26.0
@@ -53,6 +54,7 @@ devDependencies:
   '@typescript-eslint/parser': 5.37.0_eslint@8.23.0+typescript@4.8.2
   '@vitejs/plugin-vue': 3.1.0_vite@3.0.9+vue@3.2.39
   autoprefixer: 10.4.11_postcss@8.4.16
+  date-fns: 2.29.3
   eslint: 8.23.0
   eslint-config-prettier: 8.5.0_eslint@8.23.0
   eslint-plugin-import: 2.26.0_eslint@8.23.0
@@ -864,6 +866,11 @@ packages:
   /csstype/2.6.21:
     resolution: {integrity: sha512-Z1PhmomIfypOpoMjRQB70jfvy/wxT50qW08YXO5lMIJkrdq4yOTR+AW7FqutScmB9NkLwxo+jU+kZLbofZZq/w==}
     dev: false
+
+  /date-fns/2.29.3:
+    resolution: {integrity: sha512-dDCnyH2WnnKusqvZZ6+jA1O51Ibt8ZMRNkDZdyAyK4YfbDwa/cEmuztzG5pk6hqlp9aSBPYcjOlktquahGwGeA==}
+    engines: {node: '>=0.11'}
+    dev: true
 
   /debug/2.6.9:
     resolution: {integrity: sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==}
