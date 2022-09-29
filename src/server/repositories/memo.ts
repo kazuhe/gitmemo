@@ -5,6 +5,7 @@ import { cwd, env } from "node:process";
 import matter from "gray-matter";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
+import { dateFormat } from "../../domain/models/date.js";
 import type { Memo } from "../../domain/models/memo.js";
 import type {
   MemoRepository,
@@ -32,8 +33,8 @@ export const convertMemo: ConvertMemo = (path, rawMemo, stats) => {
     path: path,
     title: basename(path),
     isStar,
-    createdAt: stats.birthtime.toISOString(),
-    updatedAt: stats.mtime.toISOString(),
+    createdAt: dateFormat(stats.birthtime),
+    updatedAt: dateFormat(stats.mtime),
     tags,
     body: html,
   };

@@ -47,8 +47,8 @@ describe("convertMemo", () => {
       path: "/foo/memo.md",
       title: "memo.md",
       isStar: true,
-      createdAt: "2022-11-10T00:00:00.000Z",
-      updatedAt: "2022-11-10T00:30:00.000Z",
+      createdAt: "2022-11-10 09:00",
+      updatedAt: "2022-11-10 09:30",
       tags: ["tagA", "tagB"],
       body:
         "<h2>Index</h2>\n" +
@@ -67,8 +67,8 @@ describe("convertMemo", () => {
       path: "/foo/memo.md",
       title: "memo.md",
       isStar: false,
-      createdAt: "2022-11-10T00:00:00.000Z",
-      updatedAt: "2022-11-10T00:30:00.000Z",
+      createdAt: "2022-11-10 09:00",
+      updatedAt: "2022-11-10 09:30",
       tags: [],
       body: "<h2>Index</h2>\n",
     });
@@ -82,8 +82,8 @@ describe("convertMemo", () => {
       path: "/foo/memo.md",
       title: "memo.md",
       isStar: true,
-      createdAt: "2022-11-10T00:00:00.000Z",
-      updatedAt: "2022-11-10T00:30:00.000Z",
+      createdAt: "2022-11-10 09:00",
+      updatedAt: "2022-11-10 09:30",
       tags: ["tagA", "tagB"],
       body: "",
     });
@@ -96,8 +96,8 @@ describe("convertMemo", () => {
       path: "/foo/memo.md",
       title: "memo.md",
       isStar: false,
-      createdAt: "2022-11-10T00:00:00.000Z",
-      updatedAt: "2022-11-10T00:30:00.000Z",
+      createdAt: "2022-11-10 09:00",
+      updatedAt: "2022-11-10 09:30",
       tags: [],
       body: "",
     });
