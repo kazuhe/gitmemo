@@ -3,6 +3,7 @@ import { io } from "socket.io-client";
 import { ref } from "vue";
 import type { Path, Memo } from "../../domain/models/memo.js";
 import GAccordion from "./GAccordion/index.vue";
+import GMemoCard from "./GMemoCard/index.vue";
 
 const socket = io();
 
@@ -29,11 +30,6 @@ const fetchGreeting = async () => {
       greeting.value = d.greeting;
     });
 };
-
-/**
- * .md を取り除く
- */
-const trimMd = (path: string): string => path.replace(/.md$/, "");
 
 /**
  * Markdown ファイルかどうか
@@ -63,7 +59,7 @@ showMemoList();
   <h2>Memo 一覧</h2>
 
   <div class="flex">
-    <ul class="w-80">
+    <ul class="w-3/12">
       <!-- とりあえず -->
       <li @click="showMemoList()">TOP</li>
       <li v-for="path of paths" :key="path.name">
@@ -104,21 +100,17 @@ showMemoList();
         </g-accordion>
       </li>
     </ul>
-
-    <div>
+    <div class="w-9/12">
       <ul>
         <li v-for="(memo, i) of memoList" :key="i">
-          <div class="border">
-            <router-link
-              :to="{
-                name: 'Memo',
-                params: { id: encodeURI(memo.path) },
-              }"
-            >
-              <h2 class="text-lg font-bold">{{ trimMd(memo.title) }}</h2>
-              {{ memo }}
-            </router-link>
-          </div>
+          <g-memo-card
+            :path="memo.path"
+            :title="memo.title"
+            :is-star="memo.isStar"
+            :created-at="memo.createdAt"
+            :updated-at="memo.updatedAt ? memo.updatedAt : ''"
+            :tags="memo.tags"
+          />
         </li>
       </ul>
     </div>
@@ -137,23 +129,4 @@ showMemoList();
     <button type="button" @click="fetchGreeting">fetchGreeting</button>
     <p>greeting: {{ greeting }}</p>
   </div>
-
-  <p>
-    Check out
-    <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
-    >, the official Vue + Vite starter
-  </p>
-  <p>
-    Install
-    <a href="https://github.com/johnsoncodehk/volar" target="_blank">Volar</a>
-    in your IDE for a better DX
-  </p>
-  <p class="read-the-docs">Click on the Vite and Vue logos to learn more</p>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>
