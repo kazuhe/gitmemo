@@ -1,5 +1,5 @@
 ---
-isStar: false
+isStar: true
 tags: ["tagA", "tagB"]
 ---
 
