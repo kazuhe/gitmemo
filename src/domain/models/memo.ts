@@ -25,3 +25,13 @@ export const memoSchema = z.object({
  * メモ
  */
 export type Memo = z.infer<typeof memoSchema>;
+
+/**
+ * 対象外のディレクトリ
+ */
+const IGNORE_DIR = [".git"];
+
+/**
+ * 対象外のディレクトリであるかどうか
+ */
+export const isIgnoreDir = (dir: string) => IGNORE_DIR.some((d) => d === dir);
