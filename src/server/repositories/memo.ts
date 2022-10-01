@@ -1,7 +1,6 @@
 import type { Stats } from "node:fs";
 import { readFile, readdir, stat } from "node:fs/promises";
 import { basename } from "node:path";
-import { cwd, env } from "node:process";
 import matter from "gray-matter";
 import { marked } from "marked";
 import sanitizeHtml from "sanitize-html";
@@ -12,11 +11,6 @@ import type {
   ReadMemo,
   ReadMemoListOfDir,
 } from "../../domain/services/memo.js";
-
-/* 開発環境かどうか */
-const isDev = env["NODE_ENV"] === "dev";
-/* メモが存在するルートパス */
-const root = isDev ? cwd() + "/playground" : cwd();
 
 /**
  * 読み込んだデータを Memo に変換する
@@ -40,7 +34,7 @@ export const convertMemo: ConvertMemo = (path, rawMemo, stats) => {
   };
 };
 
-export const read: ReadMemo = async (path) => {
+export const read: ReadMemo = async (root, path) => {
   const fullPath = `${root}${path}`;
   const rawMemo = await readFile(fullPath, "utf-8");
   const stats = await stat(fullPath);
@@ -53,14 +47,14 @@ export const read: ReadMemo = async (path) => {
  */
 const isMarkdown = (path: string): boolean => /.md$/.test(path);
 
-export const readMemoListOfDir: ReadMemoListOfDir = async (dirPath) => {
+export const readMemoListOfDir: ReadMemoListOfDir = async (root, dirPath) => {
   const fullPath = root + dirPath;
   const direntList = await readdir(fullPath, { withFileTypes: true });
   const pathList = direntList
     .filter((dirent) => !dirent.isDirectory())
     .filter((dirent) => isMarkdown(dirent.name))
     .map((dirent) => `${dirPath}/${dirent.name}`);
-  const memoList = await Promise.all(pathList.map(read));
+  const memoList = await Promise.all(pathList.map((path) => read(root, path)));
   return memoList;
 };
 
