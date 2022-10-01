@@ -1,7 +1,7 @@
 import { relative } from "node:path";
 import { cwd, env } from "node:process";
 import chokidar from "chokidar";
-import { isIgnoreDir, Memo, Path } from "../../domain/models/memo.js";
+import type { Memo, Path } from "../../domain/models/memo.js";
 import type {
   MemoEmitter,
   PathEmitter,
@@ -68,8 +68,6 @@ export const pathHandler = (
 ) => {
   // if (event === "add" || event === "addDir") {
   if (event === "addDir") {
-    // 対象外のディレクトリの場合は何もしない
-    if (isIgnoreDir(path.slice(1))) return;
     paths.push(path);
   }
   // if (event === "unlink" || event === "unlinkDir") {
@@ -159,6 +157,7 @@ export const usecase = (repository: MemoRepository) => {
         "**/**/*.json",
         "**/**/*.js",
         "**/**/*.tgz",
+        "**/.git/**",
       ],
     });
 

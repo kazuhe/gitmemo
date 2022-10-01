@@ -1,5 +1,3 @@
-import * as z from "zod";
-
 /**
  * ツリー形式のパスのひと塊
  */
@@ -10,28 +8,16 @@ type PathChunk = { name: string; fullPath: string; children: PathChunk[] };
  */
 export type Path = PathChunk[];
 
-export const memoSchema = z.object({
-  id: z.number(),
-  path: z.string(),
-  title: z.string(),
-  isStar: z.boolean(),
-  createdAt: z.string(),
-  updatedAt: z.string().optional(),
-  tags: z.string().array(),
-  body: z.string().optional(),
-});
-
 /**
  * メモ
  */
-export type Memo = z.infer<typeof memoSchema>;
-
-/**
- * 対象外のディレクトリ
- */
-const IGNORE_DIR = [".git"];
-
-/**
- * 対象外のディレクトリであるかどうか
- */
-export const isIgnoreDir = (dir: string) => IGNORE_DIR.some((d) => d === dir);
+export type Memo = {
+  id: number;
+  path: string;
+  title: string;
+  isStar: boolean;
+  tags: string[];
+  createdAt: string;
+  updatedAt?: string;
+  body?: string;
+};
