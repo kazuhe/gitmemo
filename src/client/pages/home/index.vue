@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { Path, Memo } from "../../domain/models/memo.js";
-import GLayout from "../components/GLayout/index.vue";
-import GMemoCard from "../components/GMemoCard/index.vue";
-import GMemoList from "../components/GMemoList/index.vue";
+import type { Path, Memo } from "../../../domain/models/memo.js";
+import GLayout from "../../components/GLayout/index.vue";
+import GMemoCard from "../../components/GMemoCard/index.vue";
+import GMemoList from "../../components/GMemoList/index.vue";
 
 const socket = io();
 const paths = ref<Path>([]);
