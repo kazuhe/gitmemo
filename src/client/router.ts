@@ -4,8 +4,8 @@ import {
   RouterOptions,
   Router,
 } from "vue-router";
-import Memo from "./pages/Memo.vue";
-import Home from "./pages/index.vue";
+import Home from "./pages/home/index.vue";
+import Memo from "./pages/memo/index.vue";
 
 export const createRouter = (): Router => {
   const routes: RouterOptions["routes"] = [

@@ -18,7 +18,7 @@ const trimMd = (path: string): string => path.replace(/.md$/, "");
 
 <template>
   <div
-    class="w-full cursor-pointer border-t border-zinc-500 p-2 hover:bg-zinc-700"
+    class="w-full cursor-pointer border-t border-zinc-600 p-2 hover:bg-zinc-700"
   >
     <router-link
       :to="{
