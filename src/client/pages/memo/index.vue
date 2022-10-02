@@ -2,8 +2,8 @@
 import { io } from "socket.io-client";
 import { ref } from "vue";
 import { useRoute } from "vue-router";
-import type { Memo } from "../../domain/models/memo.js";
-import GLayout from "../components/GLayout/index.vue";
+import type { Memo } from "../../../domain/models/memo.js";
+import GLayout from "../../components/GLayout/index.vue";
 
 const socket = io();
 const route = useRoute();
@@ -48,8 +48,8 @@ const meta = ref({
         <router-link to="/">to Home</router-link>
 
         <pre>
-      [Meta]:{{ meta }}
-    </pre
+        [Meta]:{{ meta }}
+      </pre
         >
         <div v-html="md" />
       </div>
