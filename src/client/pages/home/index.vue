@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import GHeader from "../../components/GHeader/index.vue";
 import GLayout from "../../components/GLayout/index.vue";
 import GMemoCard from "../../components/GMemoCard/index.vue";
 import GMemoList from "../../components/GMemoList/index.vue";
@@ -10,9 +11,7 @@ const { dirList, memoList, message, showMemoList } = useHome();
 <template>
   <g-layout>
     <template #main>
-      <header class="w-full border-b border-zinc-600">
-        <div class="mx-auto max-w-screen-xl px-8">Header</div>
-      </header>
+      <g-header />
       <div class="mx-auto flex max-w-screen-xl">
         <div
           class="sticky h-screen w-80 overflow-y-auto border-r border-zinc-600 px-8 pb-10"

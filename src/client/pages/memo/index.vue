@@ -1,57 +1,47 @@
 <script setup lang="ts">
-import { io } from "socket.io-client";
-import { ref } from "vue";
-import { useRoute } from "vue-router";
-import type { Memo } from "../../../domain/models/memo.js";
+import GHeader from "../../components/GHeader/index.vue";
 import GLayout from "../../components/GLayout/index.vue";
+import { useMemo } from "./index.js";
 
-const socket = io();
-const route = useRoute();
-const id = route.params["id"];
-const decodeId = typeof id === "string" ? decodeURI(id) : "";
-
-const locate = window.location.pathname;
-console.log("locate", locate);
-
-const sendSocket = () => {
-  socket.emit("memo", decodeId);
-  socket.on("memo", (memo: Memo) => {
-    console.log("client md", memo);
-    if (memo.body) {
-      md.value = memo.body;
-    }
-    meta.value.id = memo.id;
-  });
-};
-
-sendSocket();
-
-const md = ref("");
-const meta = ref({
-  id: 0,
-  title: "",
-  isStar: false,
-  createdAt: "",
-  updatedAt: "",
-  tags: [],
-});
+const { meta } = useMemo();
 </script>
 
 <template>
   <g-layout>
     <template #main>
-      <div class="p-2">
-        <h2>Memo</h2>
-        <pre>ID = {{ $route.params }}</pre>
-        <p>ID = {{ $route.params["id"] }}</p>
-        <p>decodeId = {{ decodeId }}</p>
-        <router-link to="/">to Home</router-link>
+      <g-header />
+      <div class="mx-auto flex max-w-screen-xl px-8">
+        <div class="w-9/12">
+          <div v-if="meta">
+            <div class="border-b border-zinc-600 py-4">
+              <div class="font-bold text-zinc-400">{{ meta.path }}</div>
+              <div class="mt-2 font-bold text-zinc-400">
+                Created: {{ meta.createdAt }}
+              </div>
+              <h2 class="mt-2 text-xl font-bold">
+                {{ meta.title }}
+              </h2>
+              <ul
+                v-if="meta.tags.length"
+                class="mt-2 flex items-center text-xs"
+              >
+                <li
+                  v-for="(tag, i) of meta.tags"
+                  :key="i"
+                  class="mr-1 rounded-xl bg-zinc-500 px-2 py-1 font-bold"
+                >
+                  {{ tag }}
+                </li>
+              </ul>
+            </div>
+            <div class="mt-4">
+              <div v-html="meta.body" />
+            </div>
+          </div>
 
-        <pre>
-        [Meta]:{{ meta }}
-      </pre
-        >
-        <div v-html="md" />
+          <div class="mt-16">[Meta]:{{ meta }}</div>
+        </div>
+        <div class="w-3/12 border">目次</div>
       </div>
     </template>
   </g-layout>
