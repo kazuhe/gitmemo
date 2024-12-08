@@ -37,7 +37,7 @@
     "vue-tsc": "0.40.13"
   },
   "devDependencies": {
-    "@tsconfig/strictest": "1.0.1",
+    "@tsconfig/strictest": "1.0.2",
     "@types/express": "4.17.13",
     "@types/marked": "4.0.7",
     "@types/sanitize-html": "2.6.2",
